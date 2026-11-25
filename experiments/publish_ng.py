@@ -44,16 +44,9 @@ for r in grid.itertuples():
         (val.decision < 20) & (val.confidence > r.threshold), val.decision, val.kmeans
     )
     assert np.isclose(ami(val.label, pred), r.ami)
-table(
-    "ng-tuning.tex",
-    r"Порог $\tau$ & AMI & Смены из 200",
-    [
-        [str(r.threshold).replace(".", ","), fmt(r.ami), str(r.changed)]
-        for r in grid.itertuples()
-    ],
-)
 names = [
-    "BigARTM",
+    "PLSA (BigARTM)",
+    "Сглаженная ARTM",
     "Nomic + $k$-means",
     "Qwen + Laya, штатный порог",
     "Qwen + Laya, выбранный порог",
@@ -64,6 +57,25 @@ for r, name in zip(results.itertuples(), names, strict=True):
     rows.append(
         [name, fmt(r.ami), str(int(r.changes)) if pd.notna(r.changes) else "---"]
     )
+openai = pd.read_csv(src / "openai-comparison.csv")
+api_docs = pd.read_csv(src / "openai-assignments.csv").set_index("id").loc[test.id]
+assert np.array_equal(api_docs.kmeans, test.kmeans) and np.array_equal(
+    api_docs.label, test.label
+)
+for r in openai.itertuples():
+    assert np.isclose(ami(api_docs.label, api_docs[r.method]), r.ami)
+    threshold_name = "штатный" if r.method == "default" else "выбранный"
+    rows.append([f"Qwen + Luna, {threshold_name} порог", fmt(r.ami), str(r.changes)])
+api_grid = pd.read_csv(src / "openai-tuning.csv")
+assert np.allclose(api_grid.threshold, grid.threshold)
+table(
+    "ng-tuning.tex",
+    r"Порог $\tau$ & AMI Laya & AMI Luna",
+    [
+        [f"{r.threshold:.1f}".replace(".", ","), fmt(r.ami), fmt(a)]
+        for r, a in zip(grid.itertuples(), api_grid.ami, strict=True)
+    ],
+)
 table("ng-test.tex", "Метод & AMI & Смены из 160", rows)
 counts = pd.crosstab(test.label, test.kmeans).reindex(columns=range(20), fill_value=0)
 rr, cc = linear_sum_assignment(-counts.to_numpy())
@@ -87,24 +99,87 @@ fig = r"""\begin{center}
     .replace("COLS", ",".join(map(str, cc)))
     .replace("LABELS", ",".join(counts.index))
 )
+
+
+def escape(text):
+    return "".join(
+        {"&": r"\&", "%": r"\%", "_": r"\_", "#": r"\#", "$": r"\$"}.get(c, c)
+        for c in text
+    )
+
+
 # Select illustrative clusters by a fixed rule: most test letters, then cluster ID.
 examples = []
 for k in sorted(range(20), key=lambda k: (-counts[k].sum(), k))[:2]:
     top = topics[k]
     assert top["cluster"] == k
     examples.append(
-        f"кластер {k} «{top['title']}» (группа с наибольшим числом писем --- \\texttt{{{counts[k].idxmax()}}}, {counts[k].max()} из {counts[k].sum()})"
+        f"кластер {k} «{escape(top['title'])}» (группа с наибольшим числом писем --- \\texttt{{{counts[k].idxmax()}}}, {counts[k].max()} из {counts[k].sum()})"
     )
 (dest / "ng-figure.tex").open("a").write(
     "Два наиболее многочисленных тестовых кластера иллюстрируют связь названия с рубрикацией: "
     + " и ".join(examples)
     + ".\n"
 )
-slide = []
-for k in (8, 18):
-    top = topics[k]
-    slide.append(r"\point{" + top["title"] + "} " + ", ".join(top["keywords"]) + ".")
-slide.append(
-    r"\par\medskip Два описания обучающих кластеров. В рубрикаторе 20NG хоккею соответствует одна группа \texttt{rec.sport.hockey}."
+
+
+# Preserve literal class names when inserting generated English text in LaTeX.
+criteria = json.loads((src / "choices.json").read_text())["topic"]["criteria"]
+topic_name = list(criteria)[8]
+topic_lines = [
+    r"\paragraph{Полный вариант для кластера 8.} \textit{"
+    + escape(topic_name)
+    + "}. "
+    + escape(criteria[topic_name]),
+    r"\paragraph{Все варианты в порядке предъявления.}",
+    r"\begin{enumerate}",
+]
+for title in criteria:
+    topic_lines.append(r"\item " + escape(title))
+topic_lines.append(r"\end{enumerate}")
+(dest / "ng-choices.tex").write_text("\n".join(topic_lines) + "\n")
+old = pd.read_csv(src / "qwen3-1.7b/comparison.csv").set_index("method")
+new = results.set_index("method")
+api = openai.set_index("method")
+seeds = pd.read_csv(src / "classical-seeds.csv")
+assert np.isclose(
+    seeds.query("method=='PLSA' and seed==11").ami.item(), new.at["plsa", "ami"]
 )
-(dest / "ng-example.tex").write_text("\n".join(slide) + "\n")
+assert np.isclose(
+    seeds.query("method=='smooth' and seed==11").ami.item(), new.at["bigartm", "ami"]
+)
+
+
+def valnum(n):
+    return f"{n:g}".replace(".", ",")
+
+
+text = (
+    f"При пороге 0,1 Laya с описаниями Qwen3-1.7B дала AMI {fmt(old.at['default', 'ami'])}, "
+    f"с описаниями Qwen3.5-4B --- {fmt(new.at['default', 'ami'])}. "
+    f"Центры, пять представителей каждого кластера и тестовые письма совпадают. "
+    f"После отдельного подбора порога для Laya ($\\tau={valnum(best.threshold)}$) и GPT-6-Luna "
+    f"($\\tau={valnum(api.at['selected', 'threshold'])}$) тестовая AMI составила "
+    f"{fmt(new.at['selected', 'ami'])} и {fmt(api.at['selected', 'ami'])} соответственно.\n\n"
+    "В таблице для BigARTM приведена заранее заданная инициализация 11. Для проверки устойчивости "
+    "повторили обучение с инициализациями 23 и 47. У PLSA диапазон тестовой AMI по трём запускам "
+    f"составил {fmt(seeds.query('method=="PLSA"').ami.min())}--{fmt(seeds.query('method=="PLSA"').ami.max())}, "
+    f"у сглаженной модели --- {fmt(seeds.query('method=="smooth"').ami.min())}--{fmt(seeds.query('method=="smooth"').ami.max())}. "
+    "Во всех шести случаях на тестовых документах представлены все 20 тем.\n"
+)
+refusals = int((api_docs.decision == 20).sum())
+agreed = int(((api_docs.decision < 20) & (api_docs.decision == api_docs.kmeans)).sum())
+text += (
+    f"\nПри штатном пороге GPT-6-Luna вернула Other для {refusals} тестовых писем, "
+    f"подтвердила исходную тему для {agreed} и сменила её для {int(api.at['default', 'changes'])}. "
+    "Большая доля отказов объясняет близость результата к исходному разбиению.\n"
+)
+(dest / "ng-results.tex").write_text(text)
+summary = (
+    f"На 160 тестовых письмах PLSA получила AMI {fmt(new.at['plsa', 'ami'])}, ближайший центр Nomic --- "
+    f"{fmt(new.at['kmeans', 'ami'])}. При одинаковых описаниях Qwen3.5-4B и штатном пороге "
+    f"Laya дала {fmt(new.at['default', 'ami'])}, GPT-6-Luna --- {fmt(api.at['default', 'ami'])}. "
+    f"При порогах, выбранных по проверочной выборке, получено {fmt(new.at['selected', 'ami'])} и "
+    f"{fmt(api.at['selected', 'ami'])} соответственно."
+)
+(dest / "ng-conclusion.tex").write_text(summary + "\n")

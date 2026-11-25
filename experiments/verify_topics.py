@@ -6,7 +6,9 @@ import fcntl
 import hashlib
 import json
 import os
+import urllib.error
 import urllib.request
+import time
 
 from dotenv import load_dotenv
 import numpy as np
@@ -82,8 +84,20 @@ class OpenAIDecisions(JevEntail):
                         "Authorization": "Bearer " + os.environ["OPENAI_API_KEY"],
                     },
                 )
-                with urllib.request.urlopen(req, timeout=90) as response:
-                    data = response.read()
+                for retry in range(5):
+                    try:
+                        with urllib.request.urlopen(req, timeout=90) as response:
+                            data = response.read()
+                        break
+                    except urllib.error.HTTPError as err:
+                        if err.code == 429 and retry < 4:
+                            time.sleep(
+                                min(60, float(err.headers.get("Retry-After", 2**retry)))
+                            )
+                            continue
+                        if 400 <= err.code < 500:
+                            pending.unlink(missing_ok=True)
+                        raise
                 tmp = dest.with_suffix(".tmp")
                 tmp.write_bytes(data)
                 tmp.replace(dest)

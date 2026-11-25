@@ -8,6 +8,7 @@ import onnxruntime as ort
 import pandas as pd
 from huggingface_hub import snapshot_download
 from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics import adjusted_mutual_info_score as ami
 from tokenizers import Tokenizer
@@ -20,7 +21,7 @@ from verify_topics import REV
 OUTDIR = OUT / "ng-discovery"
 WORK = CACHE / "ng-discovery"
 NOMIC = "e9b6763023c676ca8431644204f50c2b100d9aab"
-QWEN = "3b1b1768f8f8cf8351c712464f906e86c2b8269e"
+QWEN = "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c"
 THRESHOLDS = [0.1, 0.3, 0.5, 0.7, 1.0]
 
 
@@ -81,7 +82,7 @@ def embeddings(texts):
 def descriptions(df, reps):
     from mlx_lm import load, generate
 
-    weights = snapshot_download("mlx-community/Qwen3-1.7B-4bit", revision=QWEN)
+    weights = snapshot_download("mlx-community/Qwen3.5-4B-4bit", revision=QWEN)
     model, tok = load(weights)
 
     def ask(template, variables, keys):
@@ -144,7 +145,9 @@ def descriptions(df, reps):
     return topics
 
 
-def baseline(fit, docs):
+def baseline(fit, docs, smooth, seed=11):
+    work = WORK / f"{'smooth' if smooth else 'plsa'}-{seed}"
+    work.mkdir(exist_ok=True)
     vec = CountVectorizer(
         stop_words="english",
         token_pattern=r"(?u)\b[a-z]{3,}\b",
@@ -158,29 +161,28 @@ def baseline(fit, docs):
     supported = np.asarray(y.sum(1)).ravel() > 0
     x = x[np.asarray(x.sum(1)).ravel() > 0]
     vocab = vec.get_feature_names_out()
-    vw(WORK / "fit.vw", x, vocab)
-    vw(WORK / "eval.vw", y[supported], vocab)
+    vw(work / "fit.vw", x, vocab)
+    vw(work / "eval.vw", y[supported], vocab)
     params = [
         "-t",
         20,
         "--num-document-passes",
         10,
-        "--regularizer",
-        "0.1 SmoothTheta",
-        "0.01 SmoothPhi",
     ]
+    if smooth:
+        params.extend(["--regularizer", "0.1 SmoothTheta", "0.01 SmoothPhi"])
     exe = CACHE / "bin/bigartm"
     cli(
         exe,
-        WORK,
+        work,
         [
             *params,
             "-c",
-            WORK / "fit.vw",
+            work / "fit.vw",
             "-p",
             25,
             "--rand-seed",
-            11,
+            seed,
             "--save-model",
             "model",
             "--write-predictions",
@@ -189,11 +191,11 @@ def baseline(fit, docs):
     )
     cli(
         exe,
-        WORK,
+        work,
         [
             *params,
             "-c",
-            WORK / "eval.vw",
+            work / "eval.vw",
             "--load-model",
             "model",
             "--write-predictions",
@@ -201,13 +203,13 @@ def baseline(fit, docs):
         ],
     )
     cols = (
-        pd.read_csv(WORK / "eval.csv", sep=";", nrows=0)
+        pd.read_csv(work / "eval.csv", sep=";", nrows=0)
         .columns.drop(["id", "title"])
         .tolist()
     )
-    prior = theta(WORK, "fit.csv", cols, x.shape[0]).mean(0)
+    prior = theta(work, "fit.csv", cols, x.shape[0]).mean(0)
     result = np.full(len(docs), prior.argmax())
-    result[supported] = theta(WORK, "eval.csv", cols, supported.sum()).argmax(1)
+    result[supported] = theta(work, "eval.csv", cols, supported.sum()).argmax(1)
     return result
 
 
@@ -221,11 +223,28 @@ def main():
     km = KMeans(n_clusters=20, random_state=42, n_init=10).fit(vec[fit])
     docs = df.loc[~fit].copy()
     docs["kmeans"] = km.predict(vec[~fit])
-    docs["bigartm"] = baseline(df.text[fit], docs.text)
+    docs["plsa"] = baseline(df.text[fit], docs.text, smooth=False)
+    docs["bigartm"] = baseline(df.text[fit], docs.text, smooth=True)
     centers = km.cluster_centers_
     reps = np.argsort(
         -(centers / np.linalg.norm(centers, axis=1, keepdims=True)) @ vec[fit].T, axis=1
     )[:, :5]
+    pca = PCA(n_components=2, svd_solver="full").fit(vec[fit])
+    xy = pca.transform(vec[fit])
+    view = df.loc[fit, ["id"]].copy()
+    view["cluster"] = km.labels_
+    view["x"], view["y"] = xy.T
+    view.to_csv(OUTDIR / "projection.csv", index=False)
+    (OUTDIR / "projection-info.json").write_text(
+        json.dumps(
+            {
+                "variance": pca.explained_variance_ratio_.tolist(),
+                "centers": pca.transform(centers).tolist(),
+            },
+            indent=2,
+        )
+        + "\n"
+    )
     path = OUTDIR / "topics.json"
     topics = descriptions(df[fit], reps)
     path.write_text(json.dumps(topics, indent=2) + "\n")
@@ -243,6 +262,13 @@ def main():
     weights = snapshot_download("convaiinnovations/laya-typed-decisions", revision=REV)
     with LayaEntail(weights, batch_size=4) as model:
         preds = model.entail(docs.text.tolist(), choices)
+    (OUTDIR / "choices.json").write_text(json.dumps(model.questions, indent=2) + "\n")
+    pd.DataFrame(
+        [
+            {"id": did, **{str(i): float(p) for i, p in enumerate(pred["probs"])}}
+            for did, pred in zip(docs.id, preds, strict=True)
+        ]
+    ).to_csv(OUTDIR / "choice-scores.csv", index=False)
     docs["decision"] = [p["class"] for p in preds]
     docs["confidence"] = [p["prob"] for p in preds]
 
@@ -277,7 +303,7 @@ def main():
             if m in ["default", "selected"]
             else None,
         )
-        for m in ["bigartm", "kmeans", "default", "selected"]
+        for m in ["plsa", "bigartm", "kmeans", "default", "selected"]
     ]
     pd.DataFrame(rows).to_csv(OUTDIR / "comparison.csv", index=False)
     print(grid, best, rows, flush=True)
