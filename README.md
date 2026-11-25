@@ -1,4 +1,4 @@
-# Восстановление рубрик 20 Newsgroups с BigARTM и TopicJev
+# Применение модели Jev в задачах тематического моделирования
 
 [Статья](tex/report.pdf) · [Слайды](tex/talk.pdf) · [LaTeX для arXiv](tex/arxiv-source.tar.gz) · [Названия, описания и пять представителей каждой темы](results/ng-discovery/topics.json)
 
