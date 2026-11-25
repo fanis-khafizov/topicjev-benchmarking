@@ -1,0 +1,3890 @@
+[
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 0,
+    "words": [
+      "quot",
+      "said",
+      "oil",
+      "president",
+      "united",
+      "bush",
+      "government",
+      "afp",
+      "new",
+      "reuters"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 1,
+    "words": [
+      "new",
+      "said",
+      "company",
+      "year",
+      "microsoft",
+      "reuters",
+      "million",
+      "prices",
+      "percent",
+      "internet"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 2,
+    "words": [
+      "game",
+      "iraq",
+      "season",
+      "people",
+      "team",
+      "reuters",
+      "said",
+      "night",
+      "win",
+      "killed"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 3,
+    "words": [
+      "reuters",
+      "new",
+      "stocks",
+      "com",
+      "court",
+      "fullquote",
+      "said",
+      "target",
+      "plan",
+      "ticker"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 0,
+    "words": [
+      "new",
+      "game",
+      "season",
+      "team",
+      "fullquote",
+      "quot",
+      "year",
+      "reuters",
+      "night",
+      "win"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 1,
+    "words": [
+      "iraq",
+      "said",
+      "president",
+      "reuters",
+      "bush",
+      "united",
+      "killed",
+      "people",
+      "minister",
+      "city"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 2,
+    "words": [
+      "reuters",
+      "oil",
+      "said",
+      "new",
+      "prices",
+      "year",
+      "court",
+      "stocks",
+      "percent",
+      "quarter"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 3,
+    "words": [
+      "new",
+      "microsoft",
+      "company",
+      "said",
+      "quot",
+      "internet",
+      "software",
+      "corp",
+      "service",
+      "security"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 0,
+    "words": [
+      "quot",
+      "said",
+      "iraq",
+      "people",
+      "reuters",
+      "killed",
+      "united",
+      "china",
+      "officials",
+      "india"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 1,
+    "words": [
+      "new",
+      "oil",
+      "game",
+      "time",
+      "season",
+      "team",
+      "prices",
+      "record",
+      "year",
+      "night"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 2,
+    "words": [
+      "president",
+      "bush",
+      "afp",
+      "reuters",
+      "said",
+      "minister",
+      "world",
+      "cup",
+      "space",
+      "court"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 3,
+    "words": [
+      "new",
+      "reuters",
+      "said",
+      "company",
+      "microsoft",
+      "corp",
+      "com",
+      "million",
+      "year",
+      "percent"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 0,
+    "words": [
+      "quot",
+      "said",
+      "oil",
+      "president",
+      "united",
+      "bush",
+      "government",
+      "afp",
+      "new",
+      "reuters"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 1,
+    "words": [
+      "new",
+      "said",
+      "company",
+      "year",
+      "microsoft",
+      "million",
+      "percent",
+      "internet",
+      "reuters",
+      "prices"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 2,
+    "words": [
+      "game",
+      "season",
+      "iraq",
+      "people",
+      "team",
+      "win",
+      "night",
+      "killed",
+      "said",
+      "sunday"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 3,
+    "words": [
+      "reuters",
+      "new",
+      "stocks",
+      "com",
+      "court",
+      "fullquote",
+      "said",
+      "target",
+      "plan",
+      "ticker"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 0,
+    "words": [
+      "new",
+      "game",
+      "season",
+      "team",
+      "fullquote",
+      "quot",
+      "win",
+      "year",
+      "night",
+      "time"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 1,
+    "words": [
+      "iraq",
+      "said",
+      "president",
+      "reuters",
+      "bush",
+      "united",
+      "people",
+      "killed",
+      "minister",
+      "city"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 2,
+    "words": [
+      "reuters",
+      "oil",
+      "said",
+      "new",
+      "prices",
+      "year",
+      "stocks",
+      "court",
+      "percent",
+      "quarter"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 3,
+    "words": [
+      "new",
+      "microsoft",
+      "company",
+      "quot",
+      "said",
+      "internet",
+      "software",
+      "corp",
+      "service",
+      "announced"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 0,
+    "words": [
+      "quot",
+      "said",
+      "iraq",
+      "people",
+      "reuters",
+      "killed",
+      "united",
+      "china",
+      "officials",
+      "city"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 1,
+    "words": [
+      "oil",
+      "new",
+      "game",
+      "time",
+      "season",
+      "prices",
+      "team",
+      "record",
+      "year",
+      "night"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 2,
+    "words": [
+      "president",
+      "bush",
+      "afp",
+      "reuters",
+      "said",
+      "minister",
+      "court",
+      "world",
+      "cup",
+      "south"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 3,
+    "words": [
+      "new",
+      "reuters",
+      "said",
+      "company",
+      "microsoft",
+      "corp",
+      "com",
+      "million",
+      "year",
+      "stocks"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 11,
+    "topic": 0,
+    "words": [
+      "quot",
+      "oil",
+      "said",
+      "president",
+      "united",
+      "bush",
+      "government",
+      "afp",
+      "new",
+      "reuters"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 11,
+    "topic": 1,
+    "words": [
+      "new",
+      "said",
+      "company",
+      "year",
+      "microsoft",
+      "million",
+      "percent",
+      "internet",
+      "prices",
+      "reuters"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 11,
+    "topic": 2,
+    "words": [
+      "game",
+      "season",
+      "people",
+      "iraq",
+      "team",
+      "win",
+      "night",
+      "killed",
+      "said",
+      "sunday"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 11,
+    "topic": 3,
+    "words": [
+      "reuters",
+      "new",
+      "stocks",
+      "com",
+      "court",
+      "fullquote",
+      "said",
+      "target",
+      "plan",
+      "ticker"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 23,
+    "topic": 0,
+    "words": [
+      "new",
+      "game",
+      "season",
+      "team",
+      "fullquote",
+      "quot",
+      "win",
+      "year",
+      "night",
+      "time"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 23,
+    "topic": 1,
+    "words": [
+      "iraq",
+      "said",
+      "president",
+      "reuters",
+      "bush",
+      "united",
+      "people",
+      "killed",
+      "minister",
+      "city"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 23,
+    "topic": 2,
+    "words": [
+      "reuters",
+      "oil",
+      "said",
+      "new",
+      "prices",
+      "year",
+      "stocks",
+      "court",
+      "percent",
+      "quarter"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 23,
+    "topic": 3,
+    "words": [
+      "new",
+      "microsoft",
+      "company",
+      "quot",
+      "said",
+      "internet",
+      "software",
+      "corp",
+      "service",
+      "announced"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 47,
+    "topic": 0,
+    "words": [
+      "quot",
+      "said",
+      "iraq",
+      "people",
+      "reuters",
+      "killed",
+      "united",
+      "china",
+      "officials",
+      "city"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 47,
+    "topic": 1,
+    "words": [
+      "oil",
+      "new",
+      "game",
+      "time",
+      "season",
+      "prices",
+      "team",
+      "record",
+      "year",
+      "night"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 47,
+    "topic": 2,
+    "words": [
+      "president",
+      "bush",
+      "afp",
+      "reuters",
+      "said",
+      "minister",
+      "court",
+      "world",
+      "cup",
+      "south"
+    ]
+  },
+  {
+    "dataset": "ag",
+    "method": "decor",
+    "seed": 47,
+    "topic": 3,
+    "words": [
+      "new",
+      "reuters",
+      "said",
+      "company",
+      "microsoft",
+      "corp",
+      "com",
+      "million",
+      "year",
+      "stocks"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 0,
+    "words": [
+      "armenian",
+      "armenians",
+      "people",
+      "turkish",
+      "earth",
+      "history",
+      "said",
+      "moon",
+      "greek",
+      "genocide"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 1,
+    "words": [
+      "information",
+      "internet",
+      "public",
+      "privacy",
+      "health",
+      "use",
+      "computer",
+      "news",
+      "research",
+      "national"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 2,
+    "words": [
+      "new",
+      "war",
+      "south",
+      "water",
+      "city",
+      "san",
+      "nuclear",
+      "island",
+      "secret",
+      "military"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 3,
+    "words": [
+      "space",
+      "launch",
+      "satellite",
+      "nasa",
+      "technology",
+      "program",
+      "shuttle",
+      "orbit",
+      "lunar",
+      "data"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 4,
+    "words": [
+      "max",
+      "edu",
+      "com",
+      "available",
+      "ftp",
+      "version",
+      "bhj",
+      "entry",
+      "chz",
+      "comp"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 5,
+    "words": [
+      "file",
+      "jpeg",
+      "image",
+      "files",
+      "dos",
+      "software",
+      "graphics",
+      "windows",
+      "gif",
+      "color"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 6,
+    "words": [
+      "key",
+      "use",
+      "data",
+      "application",
+      "chip",
+      "number",
+      "bit",
+      "widget",
+      "value",
+      "keys"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 7,
+    "words": [
+      "drive",
+      "drives",
+      "win",
+      "cancer",
+      "master",
+      "center",
+      "slave",
+      "min",
+      "van",
+      "cal"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 8,
+    "words": [
+      "people",
+      "gun",
+      "government",
+      "law",
+      "right",
+      "rights",
+      "guns",
+      "state",
+      "court",
+      "crime"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 9,
+    "words": [
+      "think",
+      "don",
+      "know",
+      "people",
+      "just",
+      "does",
+      "like",
+      "say",
+      "question",
+      "point"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 10,
+    "words": [
+      "israel",
+      "israeli",
+      "jews",
+      "section",
+      "peace",
+      "human",
+      "arab",
+      "msg",
+      "state",
+      "person"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 11,
+    "words": [
+      "god",
+      "jesus",
+      "bible",
+      "christ",
+      "word",
+      "law",
+      "christian",
+      "faith",
+      "people",
+      "john"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 12,
+    "words": [
+      "wire",
+      "use",
+      "ground",
+      "power",
+      "wiring",
+      "circuit",
+      "used",
+      "hot",
+      "cable",
+      "usually"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 13,
+    "words": [
+      "game",
+      "team",
+      "games",
+      "hockey",
+      "year",
+      "play",
+      "season",
+      "players",
+      "nhl",
+      "league"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 14,
+    "words": [
+      "people",
+      "like",
+      "don",
+      "just",
+      "think",
+      "lot",
+      "good",
+      "money",
+      "make",
+      "work"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 15,
+    "words": [
+      "thanks",
+      "know",
+      "problem",
+      "help",
+      "does",
+      "use",
+      "mail",
+      "windows",
+      "like",
+      "using"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 16,
+    "words": [
+      "just",
+      "like",
+      "don",
+      "think",
+      "right",
+      "know",
+      "did",
+      "day",
+      "time",
+      "people"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 17,
+    "words": [
+      "god",
+      "church",
+      "religion",
+      "people",
+      "religious",
+      "believe",
+      "atheists",
+      "does",
+      "atheism",
+      "men"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 18,
+    "words": [
+      "car",
+      "new",
+      "price",
+      "good",
+      "buy",
+      "just",
+      "like",
+      "don",
+      "drive",
+      "sell"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 11,
+    "topic": 19,
+    "words": [
+      "scsi",
+      "bit",
+      "card",
+      "mac",
+      "memory",
+      "disk",
+      "video",
+      "bus",
+      "ibm",
+      "use"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 0,
+    "words": [
+      "university",
+      "information",
+      "research",
+      "internet",
+      "new",
+      "national",
+      "center",
+      "computer",
+      "april",
+      "public"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 1,
+    "words": [
+      "max",
+      "space",
+      "launch",
+      "bhj",
+      "satellite",
+      "nasa",
+      "shuttle",
+      "commercial",
+      "technology",
+      "data"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 2,
+    "words": [
+      "don",
+      "people",
+      "think",
+      "just",
+      "say",
+      "like",
+      "know",
+      "way",
+      "does",
+      "wrong"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 3,
+    "words": [
+      "war",
+      "israel",
+      "israeli",
+      "south",
+      "military",
+      "nuclear",
+      "new",
+      "secret",
+      "peace",
+      "time"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 4,
+    "words": [
+      "key",
+      "encryption",
+      "chip",
+      "keys",
+      "use",
+      "public",
+      "clipper",
+      "security",
+      "faq",
+      "government"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 5,
+    "words": [
+      "armenian",
+      "armenians",
+      "people",
+      "said",
+      "jews",
+      "turkish",
+      "killed",
+      "government",
+      "jewish",
+      "greek"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 6,
+    "words": [
+      "hockey",
+      "team",
+      "nhl",
+      "games",
+      "new",
+      "game",
+      "league",
+      "season",
+      "play",
+      "edu"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 7,
+    "words": [
+      "jpeg",
+      "file",
+      "image",
+      "files",
+      "bit",
+      "gif",
+      "format",
+      "color",
+      "quality",
+      "use"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 8,
+    "words": [
+      "use",
+      "wire",
+      "ground",
+      "power",
+      "wiring",
+      "circuit",
+      "cable",
+      "used",
+      "hot",
+      "neutral"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 9,
+    "words": [
+      "just",
+      "think",
+      "don",
+      "like",
+      "know",
+      "car",
+      "got",
+      "little",
+      "years",
+      "good"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 10,
+    "words": [
+      "bike",
+      "moon",
+      "miles",
+      "earth",
+      "right",
+      "orbit",
+      "surface",
+      "probe",
+      "engine",
+      "mars"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 11,
+    "words": [
+      "chz",
+      "air",
+      "use",
+      "food",
+      "health",
+      "day",
+      "like",
+      "msg",
+      "medical",
+      "disease"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 12,
+    "words": [
+      "drive",
+      "scsi",
+      "card",
+      "bit",
+      "use",
+      "mac",
+      "windows",
+      "disk",
+      "apple",
+      "problem"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 13,
+    "words": [
+      "god",
+      "jesus",
+      "bible",
+      "church",
+      "does",
+      "believe",
+      "christ",
+      "christian",
+      "people",
+      "faith"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 14,
+    "words": [
+      "gun",
+      "people",
+      "state",
+      "law",
+      "right",
+      "rights",
+      "person",
+      "guns",
+      "government",
+      "case"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 15,
+    "words": [
+      "people",
+      "like",
+      "just",
+      "did",
+      "going",
+      "know",
+      "make",
+      "don",
+      "think",
+      "koresh"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 16,
+    "words": [
+      "game",
+      "year",
+      "good",
+      "think",
+      "team",
+      "better",
+      "jobs",
+      "hit",
+      "like",
+      "time"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 17,
+    "words": [
+      "thanks",
+      "mail",
+      "price",
+      "new",
+      "like",
+      "know",
+      "looking",
+      "interested",
+      "help",
+      "buy"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 18,
+    "words": [
+      "window",
+      "use",
+      "application",
+      "set",
+      "problem",
+      "using",
+      "widget",
+      "display",
+      "code",
+      "program"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 23,
+    "topic": 19,
+    "words": [
+      "edu",
+      "com",
+      "available",
+      "version",
+      "ftp",
+      "entry",
+      "comp",
+      "graphics",
+      "info",
+      "program"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 0,
+    "words": [
+      "gun",
+      "people",
+      "guns",
+      "rate",
+      "don",
+      "society",
+      "wrong",
+      "crime",
+      "self",
+      "risk"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 1,
+    "words": [
+      "people",
+      "war",
+      "time",
+      "new",
+      "think",
+      "jobs",
+      "south",
+      "work",
+      "make",
+      "nuclear"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 2,
+    "words": [
+      "key",
+      "encryption",
+      "privacy",
+      "internet",
+      "information",
+      "public",
+      "keys",
+      "computer",
+      "pub",
+      "security"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 3,
+    "words": [
+      "file",
+      "edu",
+      "version",
+      "available",
+      "files",
+      "jpeg",
+      "software",
+      "ftp",
+      "image",
+      "graphics"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 4,
+    "words": [
+      "day",
+      "years",
+      "time",
+      "said",
+      "ago",
+      "people",
+      "really",
+      "went",
+      "didn",
+      "just"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 5,
+    "words": [
+      "just",
+      "like",
+      "don",
+      "think",
+      "good",
+      "know",
+      "car",
+      "little",
+      "thing",
+      "way"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 6,
+    "words": [
+      "people",
+      "government",
+      "right",
+      "law",
+      "state",
+      "court",
+      "rights",
+      "tax",
+      "federal",
+      "use"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 7,
+    "words": [
+      "armenian",
+      "armenians",
+      "people",
+      "water",
+      "air",
+      "insurance",
+      "turkish",
+      "government",
+      "men",
+      "armenia"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 8,
+    "words": [
+      "game",
+      "team",
+      "games",
+      "hockey",
+      "play",
+      "year",
+      "season",
+      "league",
+      "players",
+      "new"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 9,
+    "words": [
+      "use",
+      "scsi",
+      "bit",
+      "windows",
+      "problem",
+      "window",
+      "using",
+      "card",
+      "memory",
+      "mac"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 10,
+    "words": [
+      "god",
+      "jesus",
+      "christ",
+      "bible",
+      "christian",
+      "people",
+      "world",
+      "man",
+      "faith",
+      "book"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 11,
+    "words": [
+      "space",
+      "earth",
+      "moon",
+      "lunar",
+      "orbit",
+      "science",
+      "sun",
+      "surface",
+      "msg",
+      "probe"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 12,
+    "words": [
+      "law",
+      "think",
+      "does",
+      "word",
+      "don",
+      "context",
+      "point",
+      "jim",
+      "fact",
+      "written"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 13,
+    "words": [
+      "max",
+      "israel",
+      "jews",
+      "israeli",
+      "bhj",
+      "jewish",
+      "rights",
+      "human",
+      "peace",
+      "arab"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 14,
+    "words": [
+      "use",
+      "wire",
+      "ground",
+      "power",
+      "keyboard",
+      "cable",
+      "wiring",
+      "need",
+      "circuit",
+      "used"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 15,
+    "words": [
+      "drive",
+      "thanks",
+      "know",
+      "mail",
+      "does",
+      "help",
+      "email",
+      "interested",
+      "use",
+      "disk"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 16,
+    "words": [
+      "section",
+      "line",
+      "use",
+      "weapon",
+      "dangerous",
+      "point",
+      "military",
+      "person",
+      "license",
+      "firearm"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 17,
+    "words": [
+      "space",
+      "launch",
+      "health",
+      "medical",
+      "cancer",
+      "use",
+      "research",
+      "center",
+      "new",
+      "nasa"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 18,
+    "words": [
+      "believe",
+      "people",
+      "god",
+      "don",
+      "true",
+      "just",
+      "say",
+      "does",
+      "think",
+      "know"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "PLSA",
+    "seed": 47,
+    "topic": 19,
+    "words": [
+      "edu",
+      "com",
+      "university",
+      "information",
+      "news",
+      "new",
+      "san",
+      "apr",
+      "organization",
+      "national"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 0,
+    "words": [
+      "armenian",
+      "armenians",
+      "people",
+      "turkish",
+      "history",
+      "said",
+      "world",
+      "earth",
+      "greek",
+      "genocide"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 1,
+    "words": [
+      "information",
+      "internet",
+      "public",
+      "privacy",
+      "computer",
+      "use",
+      "health",
+      "pub",
+      "news",
+      "eff"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 2,
+    "words": [
+      "new",
+      "war",
+      "south",
+      "san",
+      "city",
+      "league",
+      "edu",
+      "secret",
+      "nuclear",
+      "island"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 3,
+    "words": [
+      "space",
+      "launch",
+      "satellite",
+      "nasa",
+      "technology",
+      "program",
+      "lunar",
+      "orbit",
+      "shuttle",
+      "data"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 4,
+    "words": [
+      "max",
+      "edu",
+      "com",
+      "available",
+      "ftp",
+      "version",
+      "bhj",
+      "entry",
+      "chz",
+      "comp"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 5,
+    "words": [
+      "file",
+      "jpeg",
+      "image",
+      "files",
+      "dos",
+      "software",
+      "graphics",
+      "windows",
+      "color",
+      "gif"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 6,
+    "words": [
+      "key",
+      "use",
+      "application",
+      "data",
+      "chip",
+      "window",
+      "bit",
+      "widget",
+      "value",
+      "number"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 7,
+    "words": [
+      "drive",
+      "drives",
+      "cancer",
+      "win",
+      "master",
+      "center",
+      "slave",
+      "min",
+      "van",
+      "line"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 8,
+    "words": [
+      "people",
+      "gun",
+      "government",
+      "law",
+      "right",
+      "rights",
+      "state",
+      "guns",
+      "court",
+      "crime"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 9,
+    "words": [
+      "think",
+      "don",
+      "people",
+      "know",
+      "just",
+      "does",
+      "like",
+      "say",
+      "question",
+      "point"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 10,
+    "words": [
+      "israel",
+      "israeli",
+      "jews",
+      "section",
+      "peace",
+      "state",
+      "arab",
+      "person",
+      "msg",
+      "military"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 11,
+    "words": [
+      "god",
+      "jesus",
+      "bible",
+      "christ",
+      "word",
+      "law",
+      "christian",
+      "faith",
+      "people",
+      "believe"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 12,
+    "words": [
+      "wire",
+      "use",
+      "ground",
+      "power",
+      "wiring",
+      "used",
+      "cable",
+      "circuit",
+      "hot",
+      "box"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 13,
+    "words": [
+      "game",
+      "team",
+      "games",
+      "year",
+      "play",
+      "season",
+      "players",
+      "hockey",
+      "nhl",
+      "player"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 14,
+    "words": [
+      "people",
+      "like",
+      "don",
+      "money",
+      "just",
+      "lot",
+      "think",
+      "make",
+      "work",
+      "good"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 15,
+    "words": [
+      "thanks",
+      "know",
+      "problem",
+      "help",
+      "does",
+      "use",
+      "mail",
+      "like",
+      "windows",
+      "looking"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 16,
+    "words": [
+      "just",
+      "like",
+      "don",
+      "think",
+      "right",
+      "know",
+      "did",
+      "day",
+      "people",
+      "didn"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 17,
+    "words": [
+      "god",
+      "church",
+      "religion",
+      "people",
+      "believe",
+      "religious",
+      "atheists",
+      "does",
+      "atheism",
+      "true"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 18,
+    "words": [
+      "car",
+      "price",
+      "new",
+      "good",
+      "just",
+      "buy",
+      "like",
+      "don",
+      "bike",
+      "got"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 11,
+    "topic": 19,
+    "words": [
+      "scsi",
+      "card",
+      "bit",
+      "mac",
+      "memory",
+      "video",
+      "disk",
+      "monitor",
+      "use",
+      "bus"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 0,
+    "words": [
+      "university",
+      "information",
+      "internet",
+      "research",
+      "computer",
+      "national",
+      "new",
+      "privacy",
+      "pub",
+      "center"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 1,
+    "words": [
+      "max",
+      "space",
+      "launch",
+      "bhj",
+      "satellite",
+      "nasa",
+      "shuttle",
+      "commercial",
+      "market",
+      "technology"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 2,
+    "words": [
+      "don",
+      "people",
+      "think",
+      "just",
+      "say",
+      "like",
+      "know",
+      "way",
+      "men",
+      "time"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 3,
+    "words": [
+      "war",
+      "wire",
+      "wiring",
+      "israel",
+      "israeli",
+      "south",
+      "new",
+      "ground",
+      "subject",
+      "neutral"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 4,
+    "words": [
+      "key",
+      "encryption",
+      "chip",
+      "keys",
+      "use",
+      "clipper",
+      "public",
+      "nsa",
+      "government",
+      "atheism"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 5,
+    "words": [
+      "armenian",
+      "armenians",
+      "people",
+      "said",
+      "jews",
+      "turkish",
+      "killed",
+      "jewish",
+      "government",
+      "anti"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 6,
+    "words": [
+      "hockey",
+      "team",
+      "nhl",
+      "games",
+      "new",
+      "game",
+      "league",
+      "season",
+      "play",
+      "edu"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 7,
+    "words": [
+      "file",
+      "jpeg",
+      "image",
+      "files",
+      "bit",
+      "gif",
+      "format",
+      "color",
+      "quality",
+      "use"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 8,
+    "words": [
+      "use",
+      "power",
+      "drive",
+      "good",
+      "don",
+      "just",
+      "way",
+      "master",
+      "pin",
+      "work"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 9,
+    "words": [
+      "just",
+      "think",
+      "don",
+      "like",
+      "know",
+      "got",
+      "car",
+      "time",
+      "little",
+      "really"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 10,
+    "words": [
+      "bike",
+      "earth",
+      "moon",
+      "miles",
+      "orbit",
+      "surface",
+      "probe",
+      "space",
+      "mars",
+      "right"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 11,
+    "words": [
+      "air",
+      "chz",
+      "use",
+      "food",
+      "health",
+      "day",
+      "like",
+      "medical",
+      "disease",
+      "msg"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 12,
+    "words": [
+      "drive",
+      "scsi",
+      "card",
+      "bit",
+      "windows",
+      "mac",
+      "use",
+      "disk",
+      "problem",
+      "apple"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 13,
+    "words": [
+      "god",
+      "jesus",
+      "bible",
+      "church",
+      "does",
+      "believe",
+      "christ",
+      "christian",
+      "people",
+      "faith"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 14,
+    "words": [
+      "gun",
+      "people",
+      "state",
+      "right",
+      "law",
+      "rights",
+      "person",
+      "guns",
+      "government",
+      "case"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 15,
+    "words": [
+      "people",
+      "like",
+      "just",
+      "did",
+      "going",
+      "think",
+      "make",
+      "know",
+      "don",
+      "want"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 16,
+    "words": [
+      "game",
+      "year",
+      "good",
+      "better",
+      "team",
+      "think",
+      "hit",
+      "like",
+      "players",
+      "don"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 17,
+    "words": [
+      "thanks",
+      "mail",
+      "price",
+      "interested",
+      "new",
+      "looking",
+      "help",
+      "know",
+      "like",
+      "buy"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 18,
+    "words": [
+      "window",
+      "use",
+      "application",
+      "problem",
+      "set",
+      "using",
+      "widget",
+      "display",
+      "code",
+      "type"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 23,
+    "topic": 19,
+    "words": [
+      "edu",
+      "com",
+      "available",
+      "version",
+      "ftp",
+      "entry",
+      "comp",
+      "graphics",
+      "info",
+      "source"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 0,
+    "words": [
+      "gun",
+      "people",
+      "guns",
+      "don",
+      "rate",
+      "wrong",
+      "society",
+      "point",
+      "self",
+      "risk"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 1,
+    "words": [
+      "people",
+      "war",
+      "time",
+      "think",
+      "new",
+      "work",
+      "jobs",
+      "money",
+      "good",
+      "make"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 2,
+    "words": [
+      "key",
+      "encryption",
+      "information",
+      "internet",
+      "privacy",
+      "chip",
+      "public",
+      "keys",
+      "computer",
+      "pub"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 3,
+    "words": [
+      "file",
+      "edu",
+      "version",
+      "available",
+      "files",
+      "jpeg",
+      "image",
+      "software",
+      "ftp",
+      "graphics"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 4,
+    "words": [
+      "day",
+      "time",
+      "years",
+      "said",
+      "ago",
+      "really",
+      "people",
+      "didn",
+      "just",
+      "think"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 5,
+    "words": [
+      "just",
+      "like",
+      "don",
+      "good",
+      "think",
+      "car",
+      "know",
+      "little",
+      "thing",
+      "way"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 6,
+    "words": [
+      "people",
+      "government",
+      "right",
+      "law",
+      "state",
+      "court",
+      "tax",
+      "rights",
+      "just",
+      "federal"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 7,
+    "words": [
+      "armenian",
+      "armenians",
+      "people",
+      "water",
+      "air",
+      "insurance",
+      "men",
+      "turkish",
+      "armenia",
+      "henrik"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 8,
+    "words": [
+      "game",
+      "team",
+      "games",
+      "hockey",
+      "play",
+      "year",
+      "season",
+      "league",
+      "players",
+      "new"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 9,
+    "words": [
+      "max",
+      "bit",
+      "use",
+      "windows",
+      "window",
+      "scsi",
+      "problem",
+      "using",
+      "memory",
+      "application"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 10,
+    "words": [
+      "god",
+      "jesus",
+      "bible",
+      "christ",
+      "christian",
+      "people",
+      "book",
+      "faith",
+      "man",
+      "church"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 11,
+    "words": [
+      "space",
+      "earth",
+      "moon",
+      "lunar",
+      "orbit",
+      "science",
+      "sun",
+      "msg",
+      "surface",
+      "probe"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 12,
+    "words": [
+      "law",
+      "entry",
+      "does",
+      "use",
+      "word",
+      "rules",
+      "think",
+      "context",
+      "don",
+      "entries"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 13,
+    "words": [
+      "israel",
+      "jews",
+      "israeli",
+      "jewish",
+      "rights",
+      "people",
+      "human",
+      "government",
+      "right",
+      "peace"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 14,
+    "words": [
+      "use",
+      "wire",
+      "ground",
+      "keyboard",
+      "wiring",
+      "power",
+      "need",
+      "cable",
+      "circuit",
+      "don"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 15,
+    "words": [
+      "drive",
+      "thanks",
+      "know",
+      "mail",
+      "card",
+      "does",
+      "like",
+      "help",
+      "disk",
+      "price"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 16,
+    "words": [
+      "use",
+      "section",
+      "line",
+      "weapon",
+      "point",
+      "dangerous",
+      "person",
+      "problem",
+      "military",
+      "firearm"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 17,
+    "words": [
+      "space",
+      "launch",
+      "health",
+      "medical",
+      "cancer",
+      "use",
+      "research",
+      "new",
+      "center",
+      "nasa"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 18,
+    "words": [
+      "believe",
+      "people",
+      "don",
+      "god",
+      "just",
+      "think",
+      "say",
+      "true",
+      "does",
+      "know"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "smooth",
+    "seed": 47,
+    "topic": 19,
+    "words": [
+      "edu",
+      "com",
+      "university",
+      "information",
+      "news",
+      "new",
+      "san",
+      "apr",
+      "organization",
+      "colorado"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 0,
+    "words": [
+      "armenian",
+      "armenians",
+      "people",
+      "turkish",
+      "history",
+      "said",
+      "world",
+      "earth",
+      "greek",
+      "genocide"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 1,
+    "words": [
+      "information",
+      "internet",
+      "public",
+      "privacy",
+      "computer",
+      "health",
+      "use",
+      "pub",
+      "news",
+      "eff"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 2,
+    "words": [
+      "new",
+      "war",
+      "south",
+      "san",
+      "city",
+      "league",
+      "edu",
+      "secret",
+      "nuclear",
+      "island"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 3,
+    "words": [
+      "space",
+      "launch",
+      "satellite",
+      "nasa",
+      "technology",
+      "program",
+      "lunar",
+      "orbit",
+      "shuttle",
+      "data"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 4,
+    "words": [
+      "max",
+      "edu",
+      "com",
+      "available",
+      "ftp",
+      "version",
+      "bhj",
+      "entry",
+      "chz",
+      "comp"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 5,
+    "words": [
+      "file",
+      "jpeg",
+      "image",
+      "files",
+      "dos",
+      "software",
+      "graphics",
+      "windows",
+      "color",
+      "gif"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 6,
+    "words": [
+      "key",
+      "use",
+      "application",
+      "data",
+      "chip",
+      "window",
+      "widget",
+      "bit",
+      "value",
+      "number"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 7,
+    "words": [
+      "drive",
+      "drives",
+      "cancer",
+      "win",
+      "master",
+      "center",
+      "slave",
+      "min",
+      "van",
+      "cal"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 8,
+    "words": [
+      "people",
+      "gun",
+      "government",
+      "law",
+      "right",
+      "rights",
+      "state",
+      "guns",
+      "court",
+      "crime"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 9,
+    "words": [
+      "think",
+      "don",
+      "people",
+      "know",
+      "just",
+      "does",
+      "like",
+      "say",
+      "question",
+      "point"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 10,
+    "words": [
+      "israel",
+      "israeli",
+      "jews",
+      "section",
+      "peace",
+      "state",
+      "arab",
+      "person",
+      "msg",
+      "military"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 11,
+    "words": [
+      "god",
+      "jesus",
+      "bible",
+      "christ",
+      "word",
+      "law",
+      "christian",
+      "faith",
+      "people",
+      "believe"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 12,
+    "words": [
+      "wire",
+      "ground",
+      "use",
+      "power",
+      "wiring",
+      "used",
+      "cable",
+      "circuit",
+      "hot",
+      "box"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 13,
+    "words": [
+      "game",
+      "team",
+      "games",
+      "year",
+      "play",
+      "season",
+      "players",
+      "hockey",
+      "nhl",
+      "player"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 14,
+    "words": [
+      "people",
+      "like",
+      "money",
+      "don",
+      "lot",
+      "just",
+      "think",
+      "make",
+      "work",
+      "good"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 15,
+    "words": [
+      "thanks",
+      "know",
+      "problem",
+      "help",
+      "does",
+      "use",
+      "mail",
+      "like",
+      "windows",
+      "looking"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 16,
+    "words": [
+      "just",
+      "like",
+      "don",
+      "think",
+      "right",
+      "know",
+      "did",
+      "day",
+      "people",
+      "didn"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 17,
+    "words": [
+      "god",
+      "church",
+      "religion",
+      "believe",
+      "people",
+      "religious",
+      "atheists",
+      "does",
+      "atheism",
+      "exist"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 18,
+    "words": [
+      "car",
+      "price",
+      "new",
+      "good",
+      "buy",
+      "just",
+      "like",
+      "don",
+      "bike",
+      "got"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 11,
+    "topic": 19,
+    "words": [
+      "scsi",
+      "card",
+      "bit",
+      "mac",
+      "memory",
+      "video",
+      "disk",
+      "monitor",
+      "use",
+      "bus"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 0,
+    "words": [
+      "university",
+      "information",
+      "internet",
+      "research",
+      "computer",
+      "national",
+      "privacy",
+      "new",
+      "center",
+      "pub"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 1,
+    "words": [
+      "max",
+      "space",
+      "launch",
+      "bhj",
+      "satellite",
+      "nasa",
+      "shuttle",
+      "commercial",
+      "market",
+      "technology"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 2,
+    "words": [
+      "don",
+      "people",
+      "think",
+      "just",
+      "say",
+      "like",
+      "know",
+      "way",
+      "men",
+      "evidence"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 3,
+    "words": [
+      "war",
+      "wire",
+      "israel",
+      "wiring",
+      "israeli",
+      "south",
+      "new",
+      "ground",
+      "subject",
+      "neutral"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 4,
+    "words": [
+      "key",
+      "encryption",
+      "chip",
+      "keys",
+      "clipper",
+      "use",
+      "public",
+      "nsa",
+      "government",
+      "faq"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 5,
+    "words": [
+      "armenian",
+      "armenians",
+      "people",
+      "said",
+      "jews",
+      "turkish",
+      "killed",
+      "jewish",
+      "government",
+      "anti"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 6,
+    "words": [
+      "hockey",
+      "team",
+      "nhl",
+      "games",
+      "new",
+      "game",
+      "league",
+      "season",
+      "play",
+      "edu"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 7,
+    "words": [
+      "file",
+      "jpeg",
+      "image",
+      "files",
+      "bit",
+      "gif",
+      "format",
+      "color",
+      "quality",
+      "use"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 8,
+    "words": [
+      "use",
+      "power",
+      "drive",
+      "good",
+      "don",
+      "master",
+      "used",
+      "way",
+      "pin",
+      "work"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 9,
+    "words": [
+      "just",
+      "think",
+      "don",
+      "like",
+      "know",
+      "got",
+      "car",
+      "time",
+      "little",
+      "really"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 10,
+    "words": [
+      "bike",
+      "earth",
+      "moon",
+      "miles",
+      "orbit",
+      "surface",
+      "probe",
+      "mars",
+      "space",
+      "right"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 11,
+    "words": [
+      "air",
+      "chz",
+      "use",
+      "food",
+      "health",
+      "day",
+      "medical",
+      "disease",
+      "msg",
+      "like"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 12,
+    "words": [
+      "drive",
+      "scsi",
+      "card",
+      "bit",
+      "windows",
+      "mac",
+      "use",
+      "disk",
+      "apple",
+      "problem"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 13,
+    "words": [
+      "god",
+      "jesus",
+      "bible",
+      "church",
+      "does",
+      "believe",
+      "christ",
+      "christian",
+      "people",
+      "faith"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 14,
+    "words": [
+      "gun",
+      "people",
+      "state",
+      "right",
+      "law",
+      "rights",
+      "person",
+      "guns",
+      "government",
+      "case"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 15,
+    "words": [
+      "people",
+      "like",
+      "just",
+      "did",
+      "going",
+      "make",
+      "think",
+      "know",
+      "don",
+      "want"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 16,
+    "words": [
+      "game",
+      "year",
+      "good",
+      "better",
+      "team",
+      "think",
+      "hit",
+      "players",
+      "play",
+      "like"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 17,
+    "words": [
+      "thanks",
+      "mail",
+      "price",
+      "interested",
+      "looking",
+      "help",
+      "new",
+      "know",
+      "like",
+      "buy"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 18,
+    "words": [
+      "window",
+      "use",
+      "application",
+      "set",
+      "problem",
+      "using",
+      "widget",
+      "display",
+      "code",
+      "type"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 23,
+    "topic": 19,
+    "words": [
+      "edu",
+      "com",
+      "available",
+      "version",
+      "ftp",
+      "entry",
+      "comp",
+      "graphics",
+      "info",
+      "source"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 0,
+    "words": [
+      "gun",
+      "people",
+      "guns",
+      "don",
+      "rate",
+      "wrong",
+      "society",
+      "point",
+      "self",
+      "risk"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 1,
+    "words": [
+      "people",
+      "war",
+      "time",
+      "think",
+      "new",
+      "jobs",
+      "work",
+      "money",
+      "south",
+      "make"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 2,
+    "words": [
+      "key",
+      "encryption",
+      "information",
+      "internet",
+      "privacy",
+      "chip",
+      "keys",
+      "public",
+      "computer",
+      "pub"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 3,
+    "words": [
+      "file",
+      "edu",
+      "version",
+      "available",
+      "files",
+      "jpeg",
+      "image",
+      "software",
+      "ftp",
+      "graphics"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 4,
+    "words": [
+      "day",
+      "years",
+      "time",
+      "said",
+      "ago",
+      "didn",
+      "really",
+      "people",
+      "went",
+      "think"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 5,
+    "words": [
+      "just",
+      "like",
+      "don",
+      "think",
+      "good",
+      "know",
+      "car",
+      "little",
+      "thing",
+      "way"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 6,
+    "words": [
+      "people",
+      "government",
+      "right",
+      "law",
+      "state",
+      "court",
+      "tax",
+      "rights",
+      "federal",
+      "clinton"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 7,
+    "words": [
+      "armenian",
+      "armenians",
+      "people",
+      "water",
+      "air",
+      "insurance",
+      "men",
+      "turkish",
+      "armenia",
+      "henrik"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 8,
+    "words": [
+      "game",
+      "team",
+      "games",
+      "hockey",
+      "play",
+      "year",
+      "season",
+      "league",
+      "players",
+      "new"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 9,
+    "words": [
+      "max",
+      "bit",
+      "use",
+      "window",
+      "windows",
+      "scsi",
+      "problem",
+      "using",
+      "memory",
+      "application"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 10,
+    "words": [
+      "god",
+      "jesus",
+      "bible",
+      "christ",
+      "christian",
+      "people",
+      "book",
+      "faith",
+      "man",
+      "church"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 11,
+    "words": [
+      "space",
+      "earth",
+      "moon",
+      "lunar",
+      "orbit",
+      "science",
+      "sun",
+      "msg",
+      "surface",
+      "probe"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 12,
+    "words": [
+      "law",
+      "entry",
+      "does",
+      "use",
+      "word",
+      "rules",
+      "think",
+      "context",
+      "entries",
+      "jim"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 13,
+    "words": [
+      "israel",
+      "jews",
+      "israeli",
+      "jewish",
+      "rights",
+      "people",
+      "human",
+      "government",
+      "peace",
+      "right"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 14,
+    "words": [
+      "use",
+      "wire",
+      "ground",
+      "keyboard",
+      "wiring",
+      "power",
+      "need",
+      "cable",
+      "circuit",
+      "don"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 15,
+    "words": [
+      "drive",
+      "thanks",
+      "know",
+      "mail",
+      "card",
+      "does",
+      "help",
+      "like",
+      "disk",
+      "price"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 16,
+    "words": [
+      "section",
+      "use",
+      "line",
+      "weapon",
+      "point",
+      "dangerous",
+      "military",
+      "person",
+      "problem",
+      "firearm"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 17,
+    "words": [
+      "space",
+      "launch",
+      "health",
+      "medical",
+      "cancer",
+      "research",
+      "use",
+      "center",
+      "new",
+      "nasa"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 18,
+    "words": [
+      "believe",
+      "people",
+      "don",
+      "god",
+      "just",
+      "think",
+      "say",
+      "true",
+      "does",
+      "know"
+    ]
+  },
+  {
+    "dataset": "ng",
+    "method": "decor",
+    "seed": 47,
+    "topic": 19,
+    "words": [
+      "edu",
+      "com",
+      "university",
+      "information",
+      "news",
+      "new",
+      "san",
+      "apr",
+      "organization",
+      "colorado"
+    ]
+  }
+]

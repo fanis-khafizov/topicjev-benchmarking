@@ -1,0 +1,20 @@
+\usepackage{fontspec}
+\setmainfont{LibertinusSerif-Regular.otf}[BoldFont=LibertinusSerif-Bold.otf,ItalicFont=LibertinusSerif-Italic.otf]
+\setsansfont{FiraSans-Regular.otf}[BoldFont=FiraSans-Bold.otf,ItalicFont=FiraSans-Italic.otf]
+\setmonofont{cmuntt.otf}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\usepackage{amsmath,booktabs,pgfplots}
+\pgfplotsset{compat=1.18}
+\definecolor{pine}{HTML}{006C64}
+\definecolor{ink}{HTML}{183848}
+\definecolor{copper}{HTML}{B75529}
+\newcommand{\artm}{\href{https://github.com/bigartm/bigartm}{BigARTM}}
+\newcommand{\topicjev}{\href{https://github.com/anatems1/TopicJev/tree/e271339027555160e1a9dc2efa8fc6e71b1a5475}{TopicJev}}
+\newcommand{\jev}{\href{https://typesafe.ai/blog/introducing-system-one-models-and-jev}{Jev}}
+\newcommand{\laya}{\href{https://huggingface.co/convaiinnovations/laya-typed-decisions}{Laya}}
+\newcommand{\luna}{\href{https://developers.openai.com/api/docs/guides/decisions}{OpenAI Decisions}}
+\makeatletter\let\rowinput\@@input\makeatother
+\newcommand{\basetable}{\begin{tabular}{llrrrr}\toprule Корпус & Метод & PPL $\downarrow$ & NPMI & TD & AMI $\pm s$\\\midrule\rowinput baseline-rows.tex \bottomrule\end{tabular}}
+\newcommand{\dectable}{\begin{tabular}{llrrrr}\toprule Корпус & Модель & AMI до & AMI после & Охват & Согласие \\\midrule\rowinput decision-rows.tex \bottomrule\end{tabular}}
+\newcommand{\pplplot}{\begin{tikzpicture}\begin{axis}[width=.83\linewidth,height=4.8cm,ybar,bar width=13pt,ymin=0,ymax=110,ytick={0,25,50,75,100},ylabel={\% от PPL униграммы},xtick={1,2,3},xticklabels={PLSA,Сглаживание,Сглаж. + декор.},xmin=.5,xmax=3.5,axis lines*=left,legend columns=2,legend style={at={(.5,1.02)},anchor=south,draw=none},ymajorgrids,grid style={gray!22},tick label style={font=\small}]\addplot[fill=pine,draw=pine] table[x=method,y=ag]{ppl.dat};\addplot[fill=copper,draw=copper] table[x=method,y=ng]{ppl.dat};\legend{AG News,20 Newsgroups}\end{axis}\end{tikzpicture}}
