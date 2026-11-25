@@ -2,18 +2,19 @@
 
 [Слайды на 30 минут](tex/talk.pdf) · [Статья в формате препринта](tex/report.pdf) · [Исходник доклада](tex/talk.tex) · [Исходник статьи](tex/report.tex) · [Архив LaTeX для arXiv](tex/arxiv-source.tar.gz)
 
-Сравнение трёх конфигураций официального BigARTM на AG News и 20 Newsgroups. Локальная Laya через TopicJev проверяет темы по десяти топ-словам. Для OpenAI Decisions реализован адаптер к тому же протоколу.
+## Какой вопрос проверяется
 
-## Результаты
+Улучшает ли TopicJev с локальной моделью Laya выбор одной темы для документа? Для обеих систем фиксируем 20 тем сглаженной модели BigARTM и показываем одинаковые наблюдаемые слова. Бейзлайн выбирает наиболее вероятную тему по θ. TopicJev может заменить её темой, выбранной Laya по десяти топ-словам каждой темы. При отказе сохраняется исходная тема. Качество оцениваем на другой, скрытой части каждого документа. Чем меньше перплексия (PPL), тем лучше.
 
-18 запусков BigARTM, 3 инициализации на метод и корпус. PPL оценена по скрытой половине документа. Средние для PLSA и сглаженной модели составили 1866 и 1679 на AG News, 2662 и 2546 на 20 Newsgroups. Конфигурация со сглаживанием и seed 11 задаёт фиксированную систему тем для следующего этапа.
+| Корпус | Документов | PPL BigARTM, одна тема | PPL после TopicJev | Изменение PPL (95% парный бутстрэп) |
+|---|---:|---:|---:|---:|
+| 20 Newsgroups | 160 | 5864 | 7549 | +28,7% [+4,3; +72,5] |
+| NIPS | 160 | 3370 | 5261 | +56,1% [+42,1; +72,0] |
+| KOS | 160 | 3906 | 6821 | +74,6% [+51,5; +105,2] |
 
-| 100 тестовых примеров каждого корпуса | AMI BigARTM | AMI TopicJev + Laya | Принято |
-|---|---:|---:|---:|
-| AG News | 0,362 | 0,215 | 23 |
-| 20 Newsgroups | 0,301 | 0,154 | 90 |
+На 20 Newsgroups AMI с известными классами снизилась с 0,270 до 0,216. Корпуса NIPS и KOS взяты из [UCI Bag of Words](https://archive.ics.uci.edu/dataset/164/bag%2Bof%2Bwords), в этой версии доступны счётчики слов. Во всех трёх случаях Laya видит список слов с частотами. Вывод относится к этой форме входа и одной инициализации. Для проверки семантической уместности темы нужна отдельная оценка.
 
-Другие инициализации, метрики и контроль с перестановкой меток доступны в [metrics.csv](results/metrics.csv). В каталоге [results](results) лежат тестовые ID, назначения и топ-слова. Исходные тексты восстанавливаются из публичных архивов по ID. Платный эксперимент ожидает запуска.
+[Результаты по документам и списки тем](results/paired) · [Контрольные значения PPL для трёх конфигураций BigARTM](results/paired/baselines.csv) · [Прежний пилот на AG News и 20 Newsgroups](https://github.com/fanis-khafizov/topicjev-benchmarking/tree/d14951c)
 
 ## Воспроизведение
 
@@ -22,9 +23,8 @@ Python 3.12, зависимости и версия TopicJev зафиксиро�
 ~~~sh
 uv sync --locked
 ./experiments/build_bigartm_mac.sh
-uv run --locked python experiments/benchmark.py --bigartm "$PWD/.cache/bin/bigartm"
-uv run --locked python experiments/verify_topics.py laya --size 100
-uv run --locked python experiments/publish.py
+uv run --locked python experiments/paired_completion.py
+uv run --locked python experiments/publish_paired.py
 (cd tex && latexmk -xelatex talk.tex && latexmk -pdf report.tex)
 ~~~
 
@@ -32,16 +32,4 @@ uv run --locked python experiments/publish.py
 
 ## OpenAI Decisions
 
-Требуется действующий ключ API-проекта с кредитами и правом вызова POST /v1/decisions. Для локального запуска задайте OPENAI_API_KEY в окружении либо в файле .env корня проекта. Модель gpt-6-luna, один вопрос choice на документ. [Справочник и тариф Decisions](https://developers.openai.com/api/docs/guides/decisions).
-
-~~~sh
-uv run --locked python experiments/verify_topics.py estimate --size 100
-# После настройки ключа и выбора бюджета:
-uv run --locked python experiments/verify_topics.py openai --size 100 --budget-usd 0.10
-uv run --locked python experiments/publish.py
-(cd tex && latexmk -xelatex talk.tex && latexmk -pdf report.tex)
-~~~
-
-Здесь 100 означает число документов **на корпус**. Для пробного запуска используйте --size 2 (4 запроса в сумме). Документы пилота входят в полный набор, ответы кэшируются по хешу запроса. Локальный резерв на полный набор около $0,0862 при стандартной цене $0,10 за миллион входных токенов. Это консервативная оценка по длине запроса в UTF-8 с запасом на оформление. Фактический счёт определяется тарифами проекта и данными usage. Параметр --budget-usd ограничивает резерв новых запросов за один запуск. После сетевого сбоя с неясным биллингом скрипт сохраняет маркер .pending; сверьте использование в проекте перед повторной отправкой.
-
-Адаптер наследует JevEntail, передаёт параметры choice и переводит вероятности из ответа OpenAI в логарифмы для штатной нормировки и порога TopicJev. Режим estimate использует тот же сериализатор и работает локально. После измерения на 100 документах publish.py включит строки OpenAI в обе таблицы. Интерпретацию новых результатов в тексте следует обновить после измерения.
+Все результаты выше получены с локальной Laya. Адаптер для OpenAI Decisions в `experiments/verify_topics.py` реализует протокол прежнего пилота на AG News и 20 Newsgroups. Для сравнения OpenAI с текущими результатами потребуется применить адаптер к тем же 480 видимым частям документов и тем же описаниям тем. Подробности настройки пилота доступны в [README пилотной версии](https://github.com/fanis-khafizov/topicjev-benchmarking/blob/d14951c/README.md).
