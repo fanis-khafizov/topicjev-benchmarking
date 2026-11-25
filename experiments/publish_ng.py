@@ -183,3 +183,32 @@ summary = (
     f"{fmt(api.at['selected', 'ami'])} соответственно."
 )
 (dest / "ng-conclusion.tex").write_text(summary + "\n")
+
+forced = {
+    model: pd.read_csv(src / f"{model}-forced.csv").set_index("id").loc[test.id]
+    for model in ("laya", "luna")
+}
+for frame in forced.values():
+    assert np.array_equal(frame.label, test.label) and np.array_equal(
+        frame.kmeans, test.kmeans
+    )
+table(
+    "ng-forced.tex",
+    "Режим выбора & AMI Laya & AMI Luna",
+    [
+        [name, *[fmt(ami(d.label, d[col])) for d in forced.values()]]
+        for name, col in [
+            ("20 тем + Other, штатный порог", "default"),
+            ("Лучший из 20 в прежнем ответе", "masked"),
+            ("Новый запрос с 20 темами", "closed"),
+        ]
+    ],
+)
+luna = forced["luna"]
+refused = int(luna.api_refusal.sum())
+(dest / "ng-forced-result.tex").write_text(
+    f"В новом запросе Laya отнесла каждое письмо к одной теме. GPT-6-Luna выбрала тему для {len(luna) - refused} "
+    f"писем, ещё в {refused} случаях сервис вернул отдельный тип ответа \\texttt{{refusal}}. "
+    "Для таких писем сохраняем ближайший центр, чтобы сравнение охватывало всю тестовую выборку. "
+    f"При пересчёте старых ответов Luna максимум среди содержательных тем был неоднозначен у {int(luna.masked_tie.sum())} писем.\n"
+)

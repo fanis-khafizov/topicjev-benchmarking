@@ -41,6 +41,10 @@ def request_body(text, question):
     )
 
 
+class DecisionRefusal(ValueError):
+    """The API returned an explicit refusal instead of a choice."""
+
+
 class OpenAIDecisions(JevEntail):
     """Keep upstream topic descriptions, Other option, normalization and threshold."""
 
@@ -104,6 +108,8 @@ class OpenAIDecisions(JevEntail):
                 pending.unlink()
             resp = json.loads(dest.read_bytes())
             (answer,) = resp["answers"]
+            if answer.get("type") == "refusal" and answer.get("name") == "topic":
+                raise DecisionRefusal("OpenAI Decisions returned a refusal")
             if answer["type"] != "choice" or answer["name"] != "topic":
                 raise ValueError(
                     "Refused or incomplete decision: inspect cached response"

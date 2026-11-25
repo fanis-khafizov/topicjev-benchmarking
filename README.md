@@ -21,6 +21,8 @@ uv run --locked python experiments/ng_discovery.py
 uv run --locked python experiments/ng_baseline_check.py
 # Отдельный платный запуск. Перед отправкой проверяется резерв стоимости.
 uv run --locked python experiments/ng_openai.py --budget-usd 0.55
+uv run --locked python experiments/ng_forced.py laya
+uv run --locked python experiments/ng_forced.py luna --budget-usd 0.18
 uv run --locked python experiments/publish_ng.py
 uv run --locked python experiments/ng_figures.py
 (cd tex && latexmk -pdf report.tex && latexmk -xelatex talk.tex)
