@@ -34,7 +34,7 @@ def request_body(text, question):
                 name="topic",
                 instructions=question["instructions"],
                 choices=[
-                    dict(value=k, description=v)
+                    dict(value=k, description=v) if v is not None else dict(value=k)
                     for k, v in question["criteria"].items()
                 ],
             )

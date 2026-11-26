@@ -1,5 +1,6 @@
 """Publish full-split AMI, topic descriptions and figures."""
 
+import argparse
 import json
 
 import matplotlib.pyplot as plt
@@ -22,6 +23,7 @@ METHODS = {
     "laya": "Темы кластеров Qwen: выбор Laya",
     "luna": "Темы кластеров Qwen: выбор GPT-6-Luna",
     "laya_known": "Известные рубрики Usenet: выбор Laya",
+    "luna_known": "Известные рубрики Usenet: выбор GPT-6-Luna",
 }
 
 
@@ -45,22 +47,25 @@ def escape(text):
     return "".join(special.get(c, c) for c in text)
 
 
-def publish():
-    train, test = letters("train"), letters("test")
+def publish(*, tables_only=False):
+    test = letters("test")
     data = pd.read_csv(DEST / "assignments.csv")
     assert test.id.equals(data.id) and test.label.equals(data.label)
-    scores = pd.read_csv(DEST / "comparison.csv").set_index("method").ami
-    lines = [r"\begin{tabular}{lrr}\toprule", r"Метод & AMI & Смены из 7532\\\midrule"]
+    comparison = pd.read_csv(DEST / "comparison.csv").set_index("method")
+    scores = comparison.ami
+    lines = [r"\begin{tabular}{lrrr}\toprule", r"Метод & Писем & AMI & Смены\\\midrule"]
     for key, name in METHODS.items():
+        valid = data.dropna(subset=[key])
+        assert comparison.at[key, "n"] == len(valid)
         assert np.isclose(
-            scores[key], adjusted_mutual_info_score(data.label, data[key])
+            scores[key], adjusted_mutual_info_score(valid.label, valid[key])
         )
         changes = (
             str(sum(data[key] != data.kmeans)) if key in ["laya", "luna"] else "---"
         )
         if key == "laya_known":
             lines.append(r"\midrule")
-        lines.append(f"{name} & {fmt(scores[key])} & {changes}" + r"\\")
+        lines.append(f"{name} & {len(valid)} & {fmt(scores[key])} & {changes}" + r"\\")
     (TEX / "full-test.tex").write_text(
         "\n".join([*lines, r"\bottomrule\end{tabular}", ""])
     )
@@ -77,7 +82,7 @@ def publish():
     empty = int(data["empty"].sum())
     refused = int(data.api_refusal.sum())
     (TEX / "full-coverage.tex").write_text(
-        f"После очистки {empty} тестовых писем оказались пустыми. GPT-6-Luna вернула отказ для {refused} непустых писем. Все 7532 документа включены в AMI.\n"
+        f"После очистки {empty} тестовых писем оказались пустыми. GPT-6-Luna вернула отказ для {refused} непустых писем. В этом опыте с темами Qwen в AMI включены все 7532 документа.\n"
     )
     accepted = data[~data["empty"] & ~data.api_refusal]
     estimates = {
@@ -88,7 +93,7 @@ def publish():
         f"Для {len(accepted)} непустых писем сервис вернул распределение по темам. "
         f"На этой общей подвыборке AMI ближайшего центра составляет {estimates['kmeans']}, "
         f"Laya --- {estimates['laya']}, GPT-6-Luna --- {estimates['luna']}. "
-        "Состав подвыборки зависит от ответов сервиса. Основное сравнение в таблице охватывает полный тест.\n"
+        "Состав подвыборки зависит от ответов сервиса. В основной строке метода с темами Qwen оценка охватывает полный тест.\n"
     )
     known = scores["laya_known"]
     nonempty = data[~data["empty"]]
@@ -98,19 +103,41 @@ def publish():
     }
     correct = int(data.laya_known.eq(data.label).sum())
     accuracy_percent = f"{100 * correct / len(data):.1f}".replace(".", ",")
+    direct = data.dropna(subset=["luna_known"])
+    paired = direct[~direct["empty"] & ~direct.api_refusal]
+    both_ami = {
+        m: fmt(adjusted_mutual_info_score(paired.label, paired[m]))
+        for m in ("luna", "luna_known")
+    }
+    correct_luna = int(direct.luna_known.eq(direct.label).sum())
+
+    def percent(count, total):
+        return f"{100 * count / total:.1f}".replace(".", ",")
+
+    known_laya_paired = fmt(adjusted_mutual_info_score(direct.label, direct.laya_known))
+    combined = data.luna_known.fillna(data.laya_known)
+    combined_ami = fmt(adjusted_mutual_info_score(data.label, combined))
     (TEX / "full-known.tex").write_text(
-        f"При известных именах рубрик AMI равна {fmt(known)}. Laya вернула имя группы публикации для "
+        f"При известных именах рубрик AMI Laya равна {fmt(known)}. Модель вернула имя группы публикации для "
         f"{correct} из {len(data)} писем ({accuracy_percent}\\%). "
         f"На {len(nonempty)} непустых письмах AMI Laya с описаниями Qwen равна {same_input['laya']}, "
         f"с названиями рубрик --- {same_input['laya_known']}. "
+        f"GPT-6-Luna выбрала рубрику для {len(direct)} из {len(data)} писем. "
+        f"На этих же письмах AMI равна {fmt(scores.luna_known)} для GPT-6-Luna и {known_laya_paired} для Laya. "
+        f"Правильную рубрику GPT-6-Luna назвала для {correct_luna} писем "
+        f"({percent(correct_luna, len(direct))}\\% среди ответов, {percent(correct_luna, len(data))}\\% от всего теста).\n\n"
+        f"Если при отсутствии назначения GPT-6-Luna брать ответ Laya с теми же рубриками, "
+        f"связка получает AMI {combined_ami} на всех {len(data)} письмах. "
+        f"На {len(paired)} непустых письмах с прямым ответом GPT-6-Luna в обоих режимах "
+        f"AMI составила {both_ami['luna']} для описаний Qwen и {both_ami['luna_known']} для названий групп. "
         "Здесь меняются и границы предлагаемых тем, и формулировки вариантов. "
         "Для оценки только названий нужно сравнить несколько описаний одних и тех же кластеров.\n"
     )
     (TEX / "full-conclusion.tex").write_text(
         f"Среди методов, извлекающих темы из корпуса, ближайший центр получил AMI {fmt(scores.kmeans)}. "
         f"Повторный выбор по описаниям Qwen дал {fmt(scores.laya)} для Laya и {fmt(scores.luna)} для GPT-6-Luna.\n\n"
-        f"При известных рубриках Laya получила {fmt(known)}. Результат зависит от того, "
-        "какие темы предложены модели и как они сформулированы.\n"
+        f"На {len(direct)} письмах, для которых GPT-6-Luna выбрала известную рубрику, "
+        f"её AMI составляет {fmt(scores.luna_known)}. У Laya на тех же письмах AMI равна {known_laya_paired}.\n"
     )
     topics = json.loads((DEST / "topics.json").read_text())
     criteria = topic_choices(topics)
@@ -137,6 +164,9 @@ def publish():
             ]
         )
     )
+    if tables_only:
+        return
+    train = letters("train")
     figures(
         DEST,
         pd.concat([train, test]).set_index("id").text,
@@ -159,4 +189,6 @@ def publish():
 
 
 if __name__ == "__main__":
-    publish()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--tables-only", action="store_true")
+    publish(tables_only=parser.parse_args().tables_only)

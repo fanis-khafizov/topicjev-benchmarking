@@ -162,24 +162,83 @@ def hockey_example(model, sample):
     (DEST / "laya-example.json").write_text(json.dumps(record, indent=2) + "\n")
 
 
-def known_categories(train, test):
+def luna_predictions(labels, inputs, budget, usage_file, *, use_api_choice=False):
+    m = OpenAIDecisions(0)
+    m.decoys = []
+    m.prep_pairs([], labels)
+    question = m.questions["topic"]
+    option_index = {name: i for i, name in enumerate(question["criteria"])}
+    jobs = []
+    total = Decimal(0)
+    for text in inputs:
+        raw = json.dumps(request_body(text, question), ensure_ascii=False).encode()
+        path = m.store / (hashlib.sha256(raw).hexdigest() + ".json")
+        reserve = RATE * (len(raw) + 2048)
+        if not path.exists():
+            total += reserve
+        jobs.append((text, reserve, path))
+    print("Uncached USD reservation", total, "unique texts", len(jobs), flush=True)
+    if total > budget:
+        raise ValueError("Increase budget to cover reservation")
+
+    def score(job):
+        text, reserve, path = job
+        with OpenAIDecisions(reserve) as model:
+            model.decoys = []
+            model.threshold = 0
+            try:
+                value = int(model.entail([text], labels)[0]["class"])
+            except DecisionRefusal:
+                value = None
+        response = json.loads(path.read_text())
+        if use_api_choice and value is not None:
+            # Use the returned label even when several published probabilities tie.
+            value = option_index[response["answers"][0]["choice"]]
+        return text, value, response["usage"]["input_tokens"]
+
+    pred = {}
+    tokens = 0
+    with ThreadPoolExecutor(max_workers=12) as pool:
+        for start in range(0, len(jobs), 120):
+            for text, value, n in pool.map(score, jobs[start : start + 120]):
+                pred[text] = value
+                tokens += n
+            print("Luna", len(pred), "/", len(inputs), flush=True)
+    (DEST / usage_file).write_text(
+        json.dumps(dict(unique_requests=len(inputs), input_tokens=tokens), indent=2)
+        + "\n"
+    )
+    return pred
+
+
+def known_categories(train, test, *, backend="laya", budget=Decimal(0)):
     # Use the corpus taxonomy only; the model receives no example-to-category pairs.
     names = sorted(train.label.unique().tolist())
     assert len(names) == 20
     labels = [json.dumps({name: None}) for name in names]
     (DEST / "known-choices.json").write_text(json.dumps(names, indent=2) + "\n")
     inputs = test.text.drop_duplicates().tolist()
-    path = snapshot_download("convaiinnovations/laya-typed-decisions", revision=REV)
-    with LayaEntail(path, batch_size=4, threshold=0) as model:
-        model.decoys = []
-        pred = laya_predictions(model, labels, inputs)
+    if backend == "luna":
+        pred = luna_predictions(
+            labels, inputs, budget, "usage-known.json", use_api_choice=True
+        )
+    else:
+        path = snapshot_download("convaiinnovations/laya-typed-decisions", revision=REV)
+        with LayaEntail(path, batch_size=4, threshold=0) as model:
+            model.decoys = []
+            pred = laya_predictions(model, labels, inputs)
     frame = test[["id", "label"]].copy()
     frame["empty"] = test.text.eq("")
-    frame["laya_known"] = [names[pred[t]] for t in test.text]
-    save(frame, "laya_known.csv")
+    method = f"{backend}_known"
+    frame[method] = [names[pred[t]] if pred[t] is not None else None for t in test.text]
+    if backend == "luna":
+        frame["refusal"] = frame[method].isna()
+    save(frame, f"{method}.csv")
+    decided = frame.dropna(subset=[method])
     print(
-        "Laya, dataset categories",
-        adjusted_mutual_info_score(frame.label, frame.laya_known),
+        method,
+        len(decided),
+        adjusted_mutual_info_score(decided.label, decided[method]),
         flush=True,
     )
 
@@ -239,46 +298,7 @@ def decisions(test, backend, budget):
             )
             hockey_example(m, sample)
     else:
-        m = OpenAIDecisions(0)
-        m.decoys = []
-        m.prep_pairs([], labels)
-        question = m.questions["topic"]
-        jobs = []
-        total = Decimal(0)
-        for text in inputs:
-            raw = json.dumps(request_body(text, question), ensure_ascii=False).encode()
-            path = m.store / (hashlib.sha256(raw).hexdigest() + ".json")
-            reserve = RATE * (len(raw) + 2048)
-            if not path.exists():
-                total += reserve
-            jobs.append((text, reserve, path))
-        print("Uncached USD reservation", total, "unique texts", len(jobs), flush=True)
-        if total > budget:
-            raise ValueError("Increase budget to cover reservation")
-
-        def score(job):
-            text, reserve, path = job
-            with OpenAIDecisions(reserve) as model:
-                model.decoys = []
-                model.threshold = 0
-                try:
-                    value = int(model.entail([text], labels)[0]["class"])
-                except DecisionRefusal:
-                    value = None
-            usage = json.loads(path.read_text())["usage"]
-            return text, value, usage["input_tokens"]
-
-        tokens = 0
-        with ThreadPoolExecutor(max_workers=12) as pool:
-            for start in range(0, len(jobs), 120):
-                for text, value, n in pool.map(score, jobs[start : start + 120]):
-                    pred[text] = value
-                    tokens += n
-                print("Luna", len(pred), "/", len(inputs), flush=True)
-        (DEST / "usage.json").write_text(
-            json.dumps(dict(unique_requests=len(inputs), input_tokens=tokens), indent=2)
-            + "\n"
-        )
+        pred = luna_predictions(labels, inputs, budget, "usage.json")
     df["empty"] = ~use
     df["refusal"] = [bool(t and pred[t] is None) for t in test.text]
     df[backend] = [
@@ -292,18 +312,37 @@ def decisions(test, backend, budget):
 
 def summarize():
     df = pd.read_csv(DEST / "bigartm.csv")
-    for key in ["kmeans", "laya", "luna", "laya_known"]:
+    for key in ["kmeans", "laya", "luna", "laya_known", "luna_known"]:
         src = pd.read_csv(DEST / ("clusters.csv" if key == "kmeans" else key + ".csv"))
         assert df.id.equals(src.id) and df.label.equals(src.label)
         df[key] = src[key]
         if key == "luna":
             df["api_refusal"] = src.refusal
+        if key == "luna_known":
+            assert src.refusal.equals(src[key].isna())
+            df["known_api_refusal"] = src.refusal
     assert len(df) == 7532 and df.id.is_unique
     save(df, "assignments.csv")
-    rows = [
-        dict(method=m, n=len(df), ami=adjusted_mutual_info_score(df.label, df[m]))
-        for m in ["plsa", "artm", "kmeans", "laya", "luna", "laya_known"]
-    ]
+    rows = []
+    for method in [
+        "plsa",
+        "artm",
+        "kmeans",
+        "laya",
+        "luna",
+        "laya_known",
+        "luna_known",
+    ]:
+        evaluated = df.dropna(subset=[method])
+        if method != "luna_known":
+            assert len(evaluated) == len(df)
+        rows.append(
+            dict(
+                method=method,
+                n=len(evaluated),
+                ami=adjusted_mutual_info_score(evaluated.label, evaluated[method]),
+            )
+        )
     save(pd.DataFrame(rows), "comparison.csv")
     print(rows)
 
@@ -312,7 +351,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "stage",
-        choices=["classical", "seeds", "clusters", "laya", "luna", "known", "summary"],
+        choices=[
+            "classical",
+            "seeds",
+            "clusters",
+            "laya",
+            "luna",
+            "known",
+            "luna-known",
+            "summary",
+        ],
     )
     parser.add_argument("--budget-usd", type=Decimal, default=Decimal(0))
     args = parser.parse_args()
@@ -320,6 +368,10 @@ if __name__ == "__main__":
     WORK.mkdir(exist_ok=True)
     if args.stage == "summary":
         summarize()
+    elif args.stage == "luna-known":
+        known_categories(
+            letters("train"), letters("test"), backend="luna", budget=args.budget_usd
+        )
     elif args.stage in ["laya", "luna"]:
         decisions(letters("test"), args.stage, args.budget_usd)
     else:
