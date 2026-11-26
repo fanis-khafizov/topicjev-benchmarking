@@ -134,7 +134,7 @@ def figures():
     scores = (
         pd.read_csv(OUTDIR / "choice-scores.csv").set_index("id").loc[row.id].to_numpy()
     )
-    probs = np.r_[scores, max(0, 1 - scores.sum())]
+    probs = scores
     order = np.argsort(-probs)[:3]
     fig, ax = panel()
     box(ax, 0.012, 0.05, 0.42, 0.88, BLUE)
@@ -147,19 +147,17 @@ def figures():
         ax,
         0.49,
         0.89,
-        "Выбор Laya среди 20 тем и Other",
+        "Выбор Laya среди 20 тем",
         weight="bold",
         color=GREEN,
         fontsize=12,
     )
     label(ax, 0.49, 0.77, "Три варианта с наибольшей оценкой", fontsize=9)
     for i, k in enumerate(order):
-        name = "Other" if k == 20 else topics[k]["title"]
+        name = topics[k]["title"]
         label(ax, 0.49, 0.65 - i * 0.14, textwrap.fill(name, 44), fontsize=9)
         label(ax, 0.91, 0.65 - i * 0.14, f"{probs[k]:.1%}", color=GREEN, weight="bold")
-    label(
-        ax, 0.49, 0.20, f"При пороге 0,1 выбран кластер {row.default}.", weight="bold"
-    )
+    label(ax, 0.49, 0.20, f"Выбран кластер {order[0]}.", weight="bold")
     save(fig, "decision")
 
 

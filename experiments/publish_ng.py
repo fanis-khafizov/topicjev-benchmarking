@@ -2,7 +2,6 @@
 
 import json
 
-import numpy as np
 import pandas as pd
 from scipy.optimize import linear_sum_assignment
 from sklearn.metrics import adjusted_mutual_info_score as ami
@@ -12,13 +11,9 @@ from benchmark import ROOT, OUT
 dest = ROOT / "tex"
 src = OUT / "ng-discovery"
 docs = pd.read_csv(src / "assignments.csv")
-grid = pd.read_csv(src / "tuning.csv")
-results = pd.read_csv(src / "comparison.csv")
 topics = json.loads((src / "topics.json").read_text())
-val = docs.query("split=='validation'")
-test = docs.query("split=='test'")
-assert len(val) == 200 and len(test) == 160 and docs.id.is_unique
-best = grid.sort_values(["ami", "threshold"], ascending=False).iloc[0]
+test = docs.set_index("id", drop=False)
+assert len(test) == 160 and test.id.is_unique
 
 
 def fmt(x):
@@ -39,43 +34,27 @@ def table(path, header, rows):
     )
 
 
-for r in grid.itertuples():
-    pred = np.where(
-        (val.decision < 20) & (val.confidence > r.threshold), val.decision, val.kmeans
-    )
-    assert np.isclose(ami(val.label, pred), r.ami)
-names = [
-    "PLSA (BigARTM)",
-    "Сглаженная ARTM",
-    "Nomic + $k$-means",
-    "Qwen + Laya, штатный порог",
-    "Qwen + Laya, выбранный порог",
-]
 rows = []
-for r, name in zip(results.itertuples(), names, strict=True):
-    assert np.isclose(ami(test.label, test[r.method]), r.ami)
-    rows.append(
-        [name, fmt(r.ami), str(int(r.changes)) if pd.notna(r.changes) else "---"]
+records = []
+for key, name in [
+    ("plsa", "PLSA"),
+    ("bigartm", "Сглаженная ARTM"),
+    ("kmeans", "Nomic + $k$-means"),
+    ("laya", "Qwen + Laya"),
+    ("luna", "Qwen + GPT-6-Luna"),
+]:
+    labels = (
+        test[key]
+        if key in test
+        else pd.read_csv(src / f"{key}-forced.csv")
+        .set_index("id")
+        .loc[test.index, "closed"]
     )
-openai = pd.read_csv(src / "openai-comparison.csv")
-api_docs = pd.read_csv(src / "openai-assignments.csv").set_index("id").loc[test.id]
-assert np.array_equal(api_docs.kmeans, test.kmeans) and np.array_equal(
-    api_docs.label, test.label
-)
-for r in openai.itertuples():
-    assert np.isclose(ami(api_docs.label, api_docs[r.method]), r.ami)
-    threshold_name = "штатный" if r.method == "default" else "выбранный"
-    rows.append([f"Qwen + Luna, {threshold_name} порог", fmt(r.ami), str(r.changes)])
-api_grid = pd.read_csv(src / "openai-tuning.csv")
-assert np.allclose(api_grid.threshold, grid.threshold)
-table(
-    "ng-tuning.tex",
-    r"Порог $\tau$ & AMI Laya & AMI Luna",
-    [
-        [f"{r.threshold:.1f}".replace(".", ","), fmt(r.ami), fmt(a)]
-        for r, a in zip(grid.itertuples(), api_grid.ami, strict=True)
-    ],
-)
+    score = ami(test.label, labels)
+    changes = int((test.kmeans != labels).sum()) if key in ["laya", "luna"] else None
+    rows.append([name, fmt(score), str(changes) if changes is not None else "---"])
+    records.append(dict(method=key, ami=score, changes=changes))
+pd.DataFrame(records).to_csv(src / "comparison.csv", index=False)
 table("ng-test.tex", "Метод & AMI & Смены из 160", rows)
 counts = pd.crosstab(test.label, test.kmeans).reindex(columns=range(20), fill_value=0)
 rr, cc = linear_sum_assignment(-counts.to_numpy())
@@ -138,77 +117,3 @@ for title in criteria:
     topic_lines.append(r"\item " + escape(title))
 topic_lines.append(r"\end{enumerate}")
 (dest / "ng-choices.tex").write_text("\n".join(topic_lines) + "\n")
-old = pd.read_csv(src / "qwen3-1.7b/comparison.csv").set_index("method")
-new = results.set_index("method")
-api = openai.set_index("method")
-seeds = pd.read_csv(src / "classical-seeds.csv")
-assert np.isclose(
-    seeds.query("method=='PLSA' and seed==11").ami.item(), new.at["plsa", "ami"]
-)
-assert np.isclose(
-    seeds.query("method=='smooth' and seed==11").ami.item(), new.at["bigartm", "ami"]
-)
-
-
-def valnum(n):
-    return f"{n:g}".replace(".", ",")
-
-
-text = (
-    f"При пороге 0,1 Laya с описаниями Qwen3-1.7B дала AMI {fmt(old.at['default', 'ami'])}, "
-    f"с описаниями Qwen3.5-4B --- {fmt(new.at['default', 'ami'])}. "
-    f"Центры, пять представителей каждого кластера и тестовые письма совпадают. "
-    f"После отдельного подбора порога для Laya ($\\tau={valnum(best.threshold)}$) и GPT-6-Luna "
-    f"($\\tau={valnum(api.at['selected', 'threshold'])}$) тестовая AMI составила "
-    f"{fmt(new.at['selected', 'ami'])} и {fmt(api.at['selected', 'ami'])} соответственно.\n\n"
-    "В таблице для BigARTM приведена заранее заданная инициализация 11. Для проверки устойчивости "
-    "повторили обучение с инициализациями 23 и 47. У PLSA диапазон тестовой AMI по трём запускам "
-    f"составил {fmt(seeds.query('method=="PLSA"').ami.min())}--{fmt(seeds.query('method=="PLSA"').ami.max())}, "
-    f"у сглаженной модели --- {fmt(seeds.query('method=="smooth"').ami.min())}--{fmt(seeds.query('method=="smooth"').ami.max())}. "
-    "Во всех шести случаях на тестовых документах представлены все 20 тем.\n"
-)
-refusals = int((api_docs.decision == 20).sum())
-agreed = int(((api_docs.decision < 20) & (api_docs.decision == api_docs.kmeans)).sum())
-text += (
-    f"\nПри штатном пороге GPT-6-Luna вернула Other для {refusals} тестовых писем, "
-    f"подтвердила исходную тему для {agreed} и сменила её для {int(api.at['default', 'changes'])}. "
-    "Большая доля отказов объясняет близость результата к исходному разбиению.\n"
-)
-(dest / "ng-results.tex").write_text(text)
-summary = (
-    f"На 160 тестовых письмах PLSA получила AMI {fmt(new.at['plsa', 'ami'])}, ближайший центр Nomic --- "
-    f"{fmt(new.at['kmeans', 'ami'])}. При одинаковых описаниях Qwen3.5-4B и штатном пороге "
-    f"Laya дала {fmt(new.at['default', 'ami'])}, GPT-6-Luna --- {fmt(api.at['default', 'ami'])}. "
-    f"При порогах, выбранных по проверочной выборке, получено {fmt(new.at['selected', 'ami'])} и "
-    f"{fmt(api.at['selected', 'ami'])} соответственно."
-)
-(dest / "ng-conclusion.tex").write_text(summary + "\n")
-
-forced = {
-    model: pd.read_csv(src / f"{model}-forced.csv").set_index("id").loc[test.id]
-    for model in ("laya", "luna")
-}
-for frame in forced.values():
-    assert np.array_equal(frame.label, test.label) and np.array_equal(
-        frame.kmeans, test.kmeans
-    )
-table(
-    "ng-forced.tex",
-    "Режим выбора & AMI Laya & AMI Luna",
-    [
-        [name, *[fmt(ami(d.label, d[col])) for d in forced.values()]]
-        for name, col in [
-            ("20 тем + Other, штатный порог", "default"),
-            ("Лучший из 20 в прежнем ответе", "masked"),
-            ("Новый запрос с 20 темами", "closed"),
-        ]
-    ],
-)
-luna = forced["luna"]
-refused = int(luna.api_refusal.sum())
-(dest / "ng-forced-result.tex").write_text(
-    f"В новом запросе Laya отнесла каждое письмо к одной теме. GPT-6-Luna выбрала тему для {len(luna) - refused} "
-    f"писем, ещё в {refused} случаях сервис вернул отдельный тип ответа \\texttt{{refusal}}. "
-    "Для таких писем сохраняем ближайший центр, чтобы сравнение охватывало всю тестовую выборку. "
-    f"При пересчёте старых ответов Luna максимум среди содержательных тем был неоднозначен у {int(luna.masked_tie.sum())} писем.\n"
-)

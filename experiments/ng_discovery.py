@@ -10,19 +10,16 @@ from huggingface_hub import snapshot_download
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics import adjusted_mutual_info_score as ami
 from tokenizers import Tokenizer
 from topicjev.entail import LayaEntail
 from topicjev.prompts import load_prompt
 
 from benchmark import CACHE, OUT, cli, corpus, theta, vw
-from verify_topics import REV
 
 OUTDIR = OUT / "ng-discovery"
 WORK = CACHE / "ng-discovery"
 NOMIC = "e9b6763023c676ca8431644204f50c2b100d9aab"
 QWEN = "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c"
-THRESHOLDS = [0.1, 0.3, 0.5, 0.7, 1.0]
 
 
 def documents():
@@ -259,54 +256,13 @@ def main():
         )
         for t in topics
     ]
-    weights = snapshot_download("convaiinnovations/laya-typed-decisions", revision=REV)
-    with LayaEntail(weights, batch_size=4) as model:
-        preds = model.entail(docs.text.tolist(), choices)
+    model = LayaEntail("", threshold=0)
+    model.decoys = []
+    model.prep_pairs([], choices)
     (OUTDIR / "choices.json").write_text(json.dumps(model.questions, indent=2) + "\n")
-    pd.DataFrame(
-        [
-            {"id": did, **{str(i): float(p) for i, p in enumerate(pred["probs"])}}
-            for did, pred in zip(docs.id, preds, strict=True)
-        ]
-    ).to_csv(OUTDIR / "choice-scores.csv", index=False)
-    docs["decision"] = [p["class"] for p in preds]
-    docs["confidence"] = [p["prob"] for p in preds]
-
-    def route(t):
-        return np.where(
-            (docs.decision < 20) & (docs.confidence > t), docs.decision, docs.kmeans
-        )
-
-    val = docs.split.eq("validation")
-    tuning = []
-    for t in THRESHOLDS:
-        assignments = route(t)
-        tuning.append(
-            dict(
-                threshold=t,
-                ami=ami(docs.label[val], assignments[val]),
-                changed=np.sum(assignments[val] != docs.kmeans[val]),
-            )
-        )
-    grid = pd.DataFrame(tuning)
-    grid.to_csv(OUTDIR / "tuning.csv", index=False)
-    best = grid.sort_values(["ami", "threshold"], ascending=False).iloc[0].threshold
-    docs["default"] = route(0.1)
-    docs["selected"] = route(best)
-    docs.drop(columns="text").to_csv(OUTDIR / "assignments.csv", index=False)
-    test = docs[~val]
-    rows = [
-        dict(
-            method=m,
-            ami=ami(test.label, test[m]),
-            changes=int((test[m] != test.kmeans).sum())
-            if m in ["default", "selected"]
-            else None,
-        )
-        for m in ["plsa", "bigartm", "kmeans", "default", "selected"]
-    ]
-    pd.DataFrame(rows).to_csv(OUTDIR / "comparison.csv", index=False)
-    print(grid, best, rows, flush=True)
+    docs.loc[docs.split == "test"].drop(columns="text").to_csv(
+        OUTDIR / "assignments.csv", index=False
+    )
 
 
 if __name__ == "__main__":
