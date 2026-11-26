@@ -7,13 +7,11 @@
 \AtBeginSection{\title[\insertsectionnumber.\ \insertsectionhead]{Применение модели Jev в задачах тематического моделирования}}
 \setbeamersize{text margin left=8mm,text margin right=8mm}
 \newcommand{\point}[1]{\par\medskip{\usebeamercolor[fg]{structure}\bfseries #1}\par\smallskip}
-\newcommand{\sectiondivider}[3]{%
-  \begin{frame}
-  \centering\vfill
-  {\large\usebeamercolor[fg]{structure}\insertsectionnumber. \insertsectionhead}\par\bigskip
-  {\LARGE #1}\par\medskip
-  #2\par\vfill
-  \note{#3}
+\newcommand{\sectiondivider}[1]{%
+  \begin{frame}[plain,c]
+  \centering
+  {\LARGE\usebeamercolor[fg]{structure}\insertsectionnumber. \insertsectionhead\par}
+  \note{#1}
   \end{frame}%
 }
 \title[]{Применение модели Jev в задачах тематического моделирования}
@@ -29,8 +27,6 @@
 
 \section{Модель Jev}
 \sectiondivider
-  {Как Jev выбирает ответ?}
-  {На примере письма о хоккее разберём, как задать варианты ответа и что означают их вероятности.}
   {1:00–1:15. Предложить аудитории удержать в уме вопрос: как по одному письму выбрать между хоккеем и бейсболом?}
 \begin{frame}{Jev как функция с типизированным ответом}
 \[
@@ -98,8 +94,6 @@
 
 \section{От тематической модели к TopicJev}
 \sectiondivider
-  {Откуда взять темы, если дан только корпус?}
-  {Сначала определим тему в вероятностной модели. Затем построим список тем, из которого сможет выбирать Laya.}
   {9:30–9:50. Переход от выбора темы к построению множества вариантов по коллекции.}
 \begin{frame}{Тематическое моделирование: дано, найти, критерий}
 \point{Дано} Корпус $D$, словарь $W$, частоты слов $n_{dw}$ в документах и число скрытых тем $K$.
@@ -151,8 +145,6 @@
 \end{frame}
 \section{Эксперимент на 20 Newsgroups}
 \sectiondivider
-  {Что даёт выбор темы по её описанию?}
-  {Для каждого тестового письма известна группа публикации. Сравним с этой разметкой назначения BigARTM, ближайшего центра и моделей выбора.}
   {17:00–17:15. Обозначить смысл сравнения: что меняется, когда тему письма выбирают по описаниям тех же кластеров?}
 \begin{frame}{Эксперимент · одно письмо и его рубрика}
 \point{Источник} 18\,846 англоязычных сообщений Usenet в 20 дискуссионных группах. В версии bydate 11\,314 ранних сообщений и 7\,532 поздних.
