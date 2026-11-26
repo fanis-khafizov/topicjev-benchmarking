@@ -1,0 +1,15 @@
+{
+  "id": "20news-bydate-test/rec.sport.hockey/53890",
+  "question": {
+    "type": "choice",
+    "instructions": "Which topic does the text belong to?",
+    "criteria": {
+      "Hockey": "Ice hockey, players and teams.",
+      "Baseball": "Baseball, players and teams."
+    }
+  },
+  "probabilities": {
+    "Hockey": 0.937000036239624,
+    "Baseball": 0.06300000846385956
+  }
+}

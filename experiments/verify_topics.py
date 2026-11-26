@@ -6,6 +6,7 @@ import fcntl
 import hashlib
 import json
 import os
+import socket
 import urllib.error
 import urllib.request
 import time
@@ -102,6 +103,14 @@ class OpenAIDecisions(JevEntail):
                         if 400 <= err.code < 500:
                             pending.unlink(missing_ok=True)
                         raise
+                    except urllib.error.URLError as err:
+                        # DNS lookup failed before the HTTP request could be sent.
+                        if not isinstance(err.reason, socket.gaierror):
+                            raise
+                        if retry == 4:
+                            pending.unlink(missing_ok=True)
+                            raise
+                        time.sleep(2**retry)
                 tmp = dest.with_suffix(".tmp")
                 tmp.write_bytes(data)
                 tmp.replace(dest)

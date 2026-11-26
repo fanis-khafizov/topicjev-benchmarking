@@ -62,7 +62,7 @@ def download(name):
     return path
 
 
-def corpus(name, split):
+def corpus(name, split, *, full=False):
     rows = []
     if name == "AG News":
         with download(f"ag-{split}.csv").open() as file:
@@ -85,6 +85,8 @@ def corpus(name, split):
                     rows.append((item.name, item.name.split("/")[1], text))
     rows.sort(key=lambda r: r[0])
     df = pd.DataFrame(rows, columns=["id", "label", "text"])
+    if full:
+        return df
     df = df[df.text.str.count(r"\b[a-zA-Z]{3,}\b") >= 5]
     n = 4000 if split == "train" else 800
     rng = np.random.default_rng(2026 if split == "train" else 2027)

@@ -2,22 +2,47 @@
 
 [Статья](tex/report.pdf) · [Слайды](tex/talk.pdf) · [Исходники статьи для arXiv](tex/arxiv-source.tar.gz)
 
-20 Newsgroups — коллекция сообщений дискуссионных групп Usenet. В архиве bydate 18 846 документов, из них 11 314 ранних сообщений для обучения и 7532 поздних для тестирования. У каждого документа известна группа публикации. В нашем сравнении на каждую группу приходится 50 обучающих и восемь тестовых писем, ещё десять отложены для проверки. Модели получают первые 80 слов после очистки. [Описание корпуса](https://scikit-learn.org/stable/datasets/real_world.html#the-20-newsgroups-text-dataset) · [Разбиение](results/ng-discovery/split.csv)
+Сравниваем шесть способов назначить тему новому письму из 20 Newsgroups. Используем официальное разбиение по времени. Все 11 314 ранних писем составляют обучающую коллекцию, все 7 532 поздних входят в тест. Внешняя рубрика — группа Usenet, где автор опубликовал письмо. В основном опыте названия групп скрыты. В контрольном опыте Laya получает их полный список. Истинную рубрику конкретного письма и идентификаторы файлов скрываем во всех режимах. [Описание корпуса](http://qwone.com/~jason/20Newsgroups/)
 
-Qwen3.5-4B описывает кластеры Nomic по пяти ближайшим обучающим письмам. Laya и GPT-6-Luna выбирают из этих 20 тем. Для 25 тестовых писем API вернул отказ, и система сохранила ближайший центр. [Варианты ответа](results/ng-discovery/choices.json) · [Итоговые AMI](results/ng-discovery/comparison.csv) · [Проверка инициализаций BigARTM](results/ng-discovery/classical-seeds.csv)
+BigARTM оценивает распределение слов в каждой из 20 латентных тем на обучающих письмах. На тесте фиксируем эти распределения и выбираем самую вероятную тему документа. Для сравнения обучаем $k$-means на векторах Nomic и назначаем новому письму ближайший центр. Затем Qwen3.5-4B описывает каждый центр по пяти ближайшим обучающим письмам. Laya и GPT-6-Luna получают один и тот же вопрос, текст письма и все 20 описаний. Поэтому сравнение с ближайшим центром показывает вклад выбора по описаниям. [Исходный пример TopicJev](https://github.com/anatems1/TopicJev/tree/e271339027555160e1a9dc2efa8fc6e71b1a5475)
+
+## Результаты
+
+На всех 7 532 тестовых письмах сравниваем разбиение по темам с рубриками форума. Большее значение скорректированной взаимной информации (Adjusted Mutual Information, AMI) означает лучшее согласие.
+
+| Метод | AMI |
+|---|---:|
+| PLSA (BigARTM) | 0,312 |
+| Сглаженная ARTM (BigARTM) | 0,309 |
+| Nomic + $k$-means | 0,525 |
+| Темы Qwen + выбор Laya | 0,189 |
+| Темы Qwen + выбор GPT-6-Luna, ближайший центр при отказе | 0,484 |
+| Laya с названиями 20 рубрик Usenet | 0,421 |
+
+OpenAI обработала 7 472 различных непустых фрагментов (9 927 458 входных токенов). В 1286 тестовых письмах сработал возврат к ближайшему центру после отказа API.
+
+Обе модели получили одинаковые 20 вариантов в одном порядке. При стандартном бюджете Laya на каждый вариант после токенизации осталось 11 токенов. [Что видела Laya для каждой темы](results/ng-full/laya-options.csv)
+
+[Назначения для каждого письма](results/ng-full/assignments.csv) · [AMI по методам](results/ng-full/comparison.csv) · [Три инициализации BigARTM](results/ng-full/seeds.csv) · [20 вариантов Qwen](results/ng-full/choices.json) · [20 исходных рубрик](results/ng-full/known-choices.json)
+
+Все методы получают первые 80 слов после удаления заголовков, цитат и подписей. После очистки 25 тестовых писем пусты. Для методов с найденными кластерами берём наиболее частый обучающий кластер Nomic. В контроле с известными названиями Laya оценивает и пустой текст. В BigARTM для всех 57 писем с пустым словарным вектором назначаем тему с наибольшей средней долей на обучении. При явном отказе API сохраняем ближайший центр. В итоговой AMI каждое письмо учтено ровно один раз. [Пилот на 160 письмах](results/ng-discovery/comparison.csv)
 
 ## Воспроизведение
 
-Команды рассчитаны на Apple Silicon с Xcode Command Line Tools, uv и TeX Live. Платный шаг использует ключ из локального файла .env. Для сборки материалов из сохранённых данных достаточно двух последних Python-команд и LaTeX.
+Команды рассчитаны на Apple Silicon с Xcode Command Line Tools, uv и TeX Live. Для просмотра готовых результатов достаточно PDF и CSV. Платный шаг `luna` читает `OPENAI_API_KEY` из окружения или локального файла `.env`. Параметр `--budget-usd` задаёт верхнюю границу для резервирования стоимости новых запросов. Одинаковые входы используют сохранённый ответ.
 
 ~~~sh
 uv sync --locked
 ./experiments/build_bigartm_mac.sh
-uv run --locked python experiments/ng_discovery.py
-uv run --locked python experiments/ng_baseline_check.py
-uv run --locked python experiments/ng_forced.py laya
-uv run --locked python experiments/ng_forced.py luna --budget-usd 0.18
-uv run --locked python experiments/publish_ng.py
-uv run --locked python experiments/ng_figures.py
+uv run --locked python experiments/ng_full.py classical
+uv run --locked python experiments/ng_full.py seeds
+uv run --locked python experiments/ng_full.py clusters
+uv run --locked python experiments/ng_full.py laya
+uv run --locked python experiments/ng_full.py known
+uv run --locked python experiments/ng_full.py luna --budget-usd 10
+uv run --locked python experiments/ng_full.py summary
+uv run --locked python experiments/publish_full.py
 (cd tex && latexmk -pdf report.tex && latexmk -xelatex talk.tex)
 ~~~
+
+Чтобы пересобрать статью и слайды из сохранённых таблиц и рисунков, достаточно последней строки. [Учёт запросов и входных токенов](results/ng-full/usage.json)

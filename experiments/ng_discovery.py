@@ -142,8 +142,8 @@ def descriptions(df, reps):
     return topics
 
 
-def baseline(fit, docs, smooth, seed=11):
-    work = WORK / f"{'smooth' if smooth else 'plsa'}-{seed}"
+def baseline(fit, docs, smooth, seed=11, work_root=WORK):
+    work = work_root / f"{'smooth' if smooth else 'plsa'}-{seed}"
     work.mkdir(exist_ok=True)
     vec = CountVectorizer(
         stop_words="english",
